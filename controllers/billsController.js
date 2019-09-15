@@ -38,13 +38,9 @@ const BillsController = {
     try {
       const billId = req.params.id;
       const updatedBill = req.body;
-      const savedBill = await Bills.findByIdAndUpdate(
-        billId,
-        updatedBill,
-        {
-          new: true
-        }
-      );
+      const savedBill = await Bills.findByIdAndUpdate(billId, updatedBill, {
+        new: true
+      });
       res.json(savedBill);
     } catch (err) {
       console.log(err);
