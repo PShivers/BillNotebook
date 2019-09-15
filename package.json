@@ -1,0 +1,28 @@
+{
+  "name": "billnotebook",
+  "version": "1.0.0",
+  "description": "## Just a simple bill tracking app made to mimic my system I developed for keeping track of bills over the years. I tried to find something similar online but had no success so I decided to build my own. It is simple and straight forward. It allows for bill name/amount/due date/ and if any other parties(roommates) owe you can enter how much. Also if any other parties have already paid their portion. Will have ability to automatically populate monthly bills and auto fill them any constants as well as leave fields blank for bills blank that for example always have the same due date but the amount flucuates(utilities etc.).",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PShivers/BillNotebook.git"
+  },
+  "author": "Paul Shivers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PShivers/BillNotebook/issues"
+  },
+  "homepage": "https://github.com/PShivers/BillNotebook#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "concurrently": "^4.1.2",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.1",
+    "morgan": "^1.9.1"
+  }
+}
