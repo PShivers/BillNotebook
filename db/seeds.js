@@ -35,6 +35,17 @@ Bills.deleteMany()
       isPaid: false
     });
     return Bill3.save();
+  })
+  .then(() => {
+    const Bill4 = new Bills({
+      name: 'Car payment',
+      dueDate: '2019,10,01',
+      month: 9,
+      year: 2019,
+      amount: 213.56,
+      isPaid: false
+    });
+    return Bill4.save();
   });
 
 //devs
@@ -43,6 +54,7 @@ Months.deleteMany()
     const January = new Months({
       name: 'January',
       year: 2019,
+      monthNum: 0,
       isCurrentMonth: false,
       bills: []
     });
@@ -52,6 +64,7 @@ Months.deleteMany()
     const Month2 = new Months({
       name: 'February',
       year: 2019,
+      monthNum: 1,
       isCurrentMonth: false,
       bills: []
     });
@@ -61,6 +74,7 @@ Months.deleteMany()
     const March = new Months({
       name: 'March',
       year: 2019,
+      monthNum: 2,
       isCurrentMonth: false,
       bills: []
     });
@@ -70,6 +84,7 @@ Months.deleteMany()
     const April = new Months({
       name: 'April',
       year: 2019,
+      monthNum: 3,
       isCurrentMonth: false,
       bills: []
     });
@@ -79,6 +94,7 @@ Months.deleteMany()
     const May = new Months({
       name: 'May',
       year: 2019,
+      monthNum: 4,
       isCurrentMonth: false,
       bills: []
     });
@@ -88,6 +104,7 @@ Months.deleteMany()
     const June = new Months({
       name: 'June',
       year: 2019,
+      monthNum: 5,
       isCurrentMonth: false,
       bills: []
     });
@@ -97,6 +114,7 @@ Months.deleteMany()
     const July = new Months({
       name: 'July',
       year: 2019,
+      monthNum: 6,
       isCurrentMonth: false,
       bills: []
     });
@@ -106,6 +124,7 @@ Months.deleteMany()
     const August = new Months({
       name: 'August',
       year: 2019,
+      monthNum: 7,
       isCurrentMonth: false,
       bills: []
     });
@@ -115,7 +134,8 @@ Months.deleteMany()
     const September = new Months({
       name: 'September',
       year: 2019,
-      isCurrentMonth: true,
+      monthNum: 8,
+      isCurrentMnth: true,
       bills: []
     });
     return September.save();
@@ -124,6 +144,7 @@ Months.deleteMany()
     const October = new Months({
       name: 'October',
       year: 2019,
+      monthNum: 9,
       isCurrentMonth: false,
       bills: []
     });
@@ -133,6 +154,7 @@ Months.deleteMany()
     const November = new Months({
       name: 'November',
       year: 2019,
+      monthNum: 10,
       isCurrentMonth: false,
       bills: []
     });
@@ -142,6 +164,7 @@ Months.deleteMany()
     const December = new Months({
       name: 'December',
       year: 2019,
+      monthNum: 11,
       isCurrentMonth: false,
       bills: []
     });
