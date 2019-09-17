@@ -1,18 +1,17 @@
 import React, {Component} from 'react';
-import { getBillsByMonthAndYear } from '../util'
 
 class BillList extends Component {
   state = {
     bills: []
   }
 
-  componentDidMount = () => {
-    getBillsByMonthAndYear().then(res => {
-      console.log(res.data)
-      let bills = res.data;
-      this.setState({bills})
-    })
-  }
+  // componentDidMount = () => {
+  //   getBillsByMonthAndYear().then(res => {
+  //     console.log(res)
+  //     let bills = res.data;
+  //     this.setState({bills})
+  //   })
+  // }
 
   render() {
     return (

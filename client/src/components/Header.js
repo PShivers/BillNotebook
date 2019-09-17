@@ -8,7 +8,7 @@ class Header extends Component {
         <i className="dollar sign icon"></i>
         <div className="content">
           Flush
-          <div className="sub header">Bills without frills</div>
+          <div className="sub header">All bills, no frills</div>
         </div>
       </h2>
     );

@@ -3,21 +3,27 @@ import BillList from './components/BillList';
 import Header from './components/Header'
 import MonthSwitcher from './components/MonthSwitcher';
 
-import {getBills} from './util'
+import {getBillsByMonthAndYear} from './util'
 
 class App extends Component {
   state = {
     bills: [],
     currentMonth: "",
+    currentYear: 0,
     months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
   }
 
   componentDidMount = () => {
     let date = new Date();
-    getBills().then(bills => {
-      this.setState({bills: bills.data, currentMonth: this.state.months[date.getMonth()] })
-    });
-  }
+    let currentYear = date.getFullYear();
+    let currentMonth = this.state.months[date.getMonth()];
+    getBillsByMonthAndYear({month:date.getMonth(), year: date.getFullYear()})
+    .then(res => {
+      let bills = res.data;
+        this.setState({bills, currentMonth, currentYear})
+      });
+}
+
 
   render() {
     // console.log(this.state)
