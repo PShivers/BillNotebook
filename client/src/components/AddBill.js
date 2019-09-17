@@ -12,7 +12,7 @@ class AddBill extends Component {
     })
   }
 
-  toggle = () => {
+  formToggle = () => {
     if (this.state.showForm) {
       return (
         <div>
@@ -35,7 +35,7 @@ class AddBill extends Component {
     return (
       <div>
         <button onClick={this.handleClick}>Add Bill</button>
-        {this.toggle()}
+        {this.formToggle()}
       </div>
     );
   }
