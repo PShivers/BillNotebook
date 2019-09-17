@@ -5,6 +5,8 @@ const Bill = new Schema({
   name: String,
   dueDate: String,
   amount: Number,
+  amountPerPerson: Number,
+  copayers: String,
   isPaid: Boolean
 });
 
