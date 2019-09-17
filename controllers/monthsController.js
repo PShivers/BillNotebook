@@ -13,8 +13,8 @@ const MonthsController = {
   show: async (req, res) => {
     try {
       const monthId = req.params.id;
-      const months = await Months.findById(monthId);
-      res.json(months);
+      const month = await Months.findById(monthId);
+      res.json(month);
     } catch (err) {
       console.log(err);
       res.json(err);
