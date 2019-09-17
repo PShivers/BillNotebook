@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import BillList from './components/BillList';
 import Header from './components/Header'
 import MonthSwitcher from './components/MonthSwitcher';
+import AddBill from './components/AddBill'
 
 import {getBillsByMonthAndYear} from './util'
 
@@ -31,6 +32,7 @@ class App extends Component {
       <div className="App" style={{backgroundColor: "rgba(0,75,0,.8)"}}>
         <Header/>
         <MonthSwitcher currentMonth={this.state.currentMonth}/>
+        <AddBill />
         <BillList bills = {this.state.bills}/>
       </div>
     );
