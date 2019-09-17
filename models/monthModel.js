@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const Month = new Schema({
   name: String,
   year: Number,
+  monthNum: Number,
   isCurrentMonth: Boolean,
   bills: []
 });
