@@ -15,10 +15,10 @@ class BillList extends Component {
 
   render() {
     return (
-      <table class="ui celled padded table">
+      <table className="ui celled padded table">
         <thead>
           <tr>
-            <th class="single line">Bill</th>
+            <th className="single line">Bill</th>
             <th>Total Amount Due</th>
             <th>Amount Per Person</th>
             <th>Co-Payers</th>
@@ -30,7 +30,7 @@ class BillList extends Component {
         <tbody>
 
           {this
-            .state
+            .props
             .bills
             .map(bill => {
               return (
@@ -38,10 +38,10 @@ class BillList extends Component {
                   <td>
                     <h2 className="ui center aligned header">{bill.name}</h2>
                   </td>
-                  <td class="single line">
+                  <td className="single line">
                     ${bill.amount}
                   </td>
-                  <td class="right aligned">
+                  <td className="right aligned">
                     {bill.amountPerPerson}
                   </td>
                   <td>{bill.copayers}</td>
