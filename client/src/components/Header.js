@@ -7,7 +7,7 @@ class Header extends Component {
       <h2 className="ui center aligned icon header inverted">
         <i className="dollar sign icon"></i>
         <div className="content">
-          Simple Bill
+          Flush
           <div className="sub header">Bills without frills</div>
         </div>
       </h2>
