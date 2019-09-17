@@ -23,7 +23,17 @@ class App extends Component {
       let bills = res.data;
         this.setState({bills, currentMonth, currentYear})
       });
-}
+  }
+
+  changeMonth = (x) => {
+    console.log(this.state.currentMonth)
+    if(x){
+      this.setState({currentMonth: this.currentMonth++})
+    } else {
+      this.setState({currentMonth: this.currentMonth--})
+    }
+    
+  }
 
 
   render() {
@@ -31,7 +41,7 @@ class App extends Component {
     return (
       <div className="App" style={{backgroundColor: "rgba(0,75,0,.8)"}}>
         <Header/>
-        <MonthSwitcher currentMonth={this.state.currentMonth}/>
+        <MonthSwitcher currentMonth={this.state.currentMonth} changeMonth={this.changeMonth}/>
         <AddBill />
         <BillList bills = {this.state.bills}/>
       </div>
