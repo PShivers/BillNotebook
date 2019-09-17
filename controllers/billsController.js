@@ -21,6 +21,18 @@ const BillsController = {
     }
   },
 
+  billsByMonthAndYear: async (req, res) => {
+    try {
+      const year = req.query.year;
+      const month = req.query.month;
+      const bills = await Bills.find({ month: 8, year: 2019 });
+      res.json(bills);
+    } catch (err) {
+      console.log(err);
+      res.json(err);
+    }
+  },
+
   create: async (req, res) => {
     try {
       const newBill = req.body;

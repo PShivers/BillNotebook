@@ -5,6 +5,8 @@ const billsController = require('../controllers/billsController.js');
 router.get('/bills', billsController.index);
 router.post('/bills', billsController.create);
 
+router.get(`/bills?month=8&year=2019`, billsController.billsByMonthAndYear);
+
 router.get('/bills/:id', billsController.show);
 router.put('/bills/:id', billsController.update);
 router.delete('/bills/:id', billsController.delete);

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {getBills} from '../util'
+import { getBillsByMonthAndYear } from '../util'
 
 class BillList extends Component {
   state = {
@@ -7,14 +7,14 @@ class BillList extends Component {
   }
 
   componentDidMount = () => {
-    getBills().then(res => {
+    getBillsByMonthAndYear().then(res => {
+      console.log(res.data)
       let bills = res.data;
       this.setState({bills})
     })
   }
 
   render() {
-    console.log(this.state.bills)
     return (
       <table className="ui celled padded table">
         <thead>

@@ -20,12 +20,12 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state)
+    // console.log(this.state)
     return (
-      <div className="App">
+      <div className="App" style={{backgroundColor: "rgba(0,75,0,.8)"}}>
         <Header/>
         <MonthSwitcher currentMonth={this.state.currentMonth}/>
-        <BillList bills ={this.state.bills}/>
+        <BillList bills = {this.state.bills}/>
       </div>
     );
   }
