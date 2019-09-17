@@ -14,6 +14,7 @@ class BillList extends Component {
   }
 
   render() {
+    console.log(this.state.bills)
     return (
       <table className="ui celled padded table">
         <thead>

@@ -3,7 +3,9 @@ const Schema = mongoose.Schema;
 
 const Bill = new Schema({
   name: String,
-  dueDate: String,
+  dueDate: Date,
+  month: Number,
+  year: Number,
   amount: Number,
   amountPerPerson: Number,
   copayers: String,
