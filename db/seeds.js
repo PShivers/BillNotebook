@@ -1,12 +1,16 @@
 const Bills = require('../models/billModel.js');
 const Months = require('../models/monthModel.js');
+const Copayers = require('../models/copayerModel.js')
 
-//devs
+//bills
 Bills.deleteMany()
   .then(() => {
     const Bill1 = new Bills({
       name: 'Rent',
-      dueDate: '09012019',
+      dueDate: '2019,8,1',
+      copayers: ['Rush', 'Owen'],
+      month: 8,
+      year: 2019,
       amount: 265,
       isPaid: true
     });
@@ -15,7 +19,10 @@ Bills.deleteMany()
   .then(() => {
     const Bill2 = new Bills({
       name: 'Phone',
-      dueDate: '09192019',
+      dueDate: '2019,8,19',
+      copayers: ['Rush', 'Owen'],
+      month: 8,
+      year: 2019,
       amount: 69,
       isPaid: false
     });
@@ -25,18 +32,34 @@ Bills.deleteMany()
     const Bill3 = new Bills({
       name: 'Car payment',
       dueDate: '10012019',
+      copayers: ['Rush', 'Owen'],
+      month: 8,
+      year: 2019,
       amount: 213.56,
       isPaid: false
     });
     return Bill3.save();
+  })
+  .then(() => {
+    const Bill4 = new Bills({
+      name: 'Car payment',
+      dueDate: '2019,10,01',
+      copayers: ['Rush', 'Owen'],
+      month: 9,
+      year: 2019,
+      amount: 213.56,
+      isPaid: false
+    });
+    return Bill4.save();
   });
 
-//devs
+//bills
 Months.deleteMany()
   .then(() => {
     const January = new Months({
       name: 'January',
       year: 2019,
+      monthNum: 0,
       isCurrentMonth: false,
       bills: []
     });
@@ -46,6 +69,7 @@ Months.deleteMany()
     const Month2 = new Months({
       name: 'February',
       year: 2019,
+      monthNum: 1,
       isCurrentMonth: false,
       bills: []
     });
@@ -55,6 +79,7 @@ Months.deleteMany()
     const March = new Months({
       name: 'March',
       year: 2019,
+      monthNum: 2,
       isCurrentMonth: false,
       bills: []
     });
@@ -64,6 +89,7 @@ Months.deleteMany()
     const April = new Months({
       name: 'April',
       year: 2019,
+      monthNum: 3,
       isCurrentMonth: false,
       bills: []
     });
@@ -73,6 +99,7 @@ Months.deleteMany()
     const May = new Months({
       name: 'May',
       year: 2019,
+      monthNum: 4,
       isCurrentMonth: false,
       bills: []
     });
@@ -82,6 +109,7 @@ Months.deleteMany()
     const June = new Months({
       name: 'June',
       year: 2019,
+      monthNum: 5,
       isCurrentMonth: false,
       bills: []
     });
@@ -91,6 +119,7 @@ Months.deleteMany()
     const July = new Months({
       name: 'July',
       year: 2019,
+      monthNum: 6,
       isCurrentMonth: false,
       bills: []
     });
@@ -100,6 +129,7 @@ Months.deleteMany()
     const August = new Months({
       name: 'August',
       year: 2019,
+      monthNum: 7,
       isCurrentMonth: false,
       bills: []
     });
@@ -109,7 +139,8 @@ Months.deleteMany()
     const September = new Months({
       name: 'September',
       year: 2019,
-      isCurrentMonth: true,
+      monthNum: 8,
+      isCurrentMnth: true,
       bills: []
     });
     return September.save();
@@ -118,6 +149,7 @@ Months.deleteMany()
     const October = new Months({
       name: 'October',
       year: 2019,
+      monthNum: 9,
       isCurrentMonth: false,
       bills: []
     });
@@ -127,6 +159,7 @@ Months.deleteMany()
     const November = new Months({
       name: 'November',
       year: 2019,
+      monthNum: 10,
       isCurrentMonth: false,
       bills: []
     });
@@ -136,8 +169,40 @@ Months.deleteMany()
     const December = new Months({
       name: 'December',
       year: 2019,
+      monthNum: 11,
       isCurrentMonth: false,
       bills: []
     });
     return December.save();
+  });
+
+//copayers
+Copayers.deleteMany()
+  .then(() => {
+    const Copayer1 = new Copayers({
+      name: 'Rush',
+      email: 'paulsshivers@gmail.com'
+    });
+    return Copayer1.save();
+  })
+  .then(() => {
+    const Copayer2 = new Copayers({
+      name: 'Paul',
+      email: 'pengun86@gmail.com'
+    });
+    return Copayer2.save();
+  })
+  .then(() => {
+    const Copayer3 = new Copayers({
+      name: 'Owen',
+      email: 'pengun86@hotmail.com'
+    });
+    return Copayer3.save();
+  })
+  .then(() => {
+    const Copayer4 = new Copayers({
+      name: 'Chris',
+      email: 'paulsshivers@gmail.com'
+    });
+    return Copayer4.save();
   });
