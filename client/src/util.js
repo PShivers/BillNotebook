@@ -9,6 +9,10 @@ export function getBillsByMonthAndYear(req) {
   return axios.get(`/bills/${req.year}/${req.monthNum}`)
 }
 
+export function addBill() {
+  return axios.post('/bills')
+}
+
 export function getMonth() {
     return axios.get('/months/:id');
 }

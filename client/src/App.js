@@ -4,7 +4,7 @@ import Header from './components/Header'
 import MonthSwitcher from './components/MonthSwitcher';
 import AddBill from './components/AddBill'
 
-import {getBillsByMonthAndYear} from './util'
+import {getBillsByMonthAndYear, addBill} from './util'
 
 class App extends Component {
   state = {
@@ -58,7 +58,10 @@ class App extends Component {
         currentMonthNum: this.currentMonthNum--
       })
     }
+  }
 
+  addBill=(bill)=>{
+    addBill(bill)
   }
 
   render() {

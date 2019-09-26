@@ -4,7 +4,12 @@ class AddBill extends Component {
 
   state = {
     showForm: false,
-    newBill: {}
+    newBill: {
+      name: '',
+      amount: null,
+      dueDate: null,
+      isPaid: false
+    }
   }
 
   handleClick = () => {
@@ -13,18 +18,28 @@ class AddBill extends Component {
     })
   }
 
+  handleChange=(event)=>{
+    const attributeName = event.target.name;
+    const attributeValue = event.target.value;
+    const newBill = { ...this.state.newBill };
+    newBill[attributeName] = attributeValue;
+    this.setState({ newBill }, () => {
+      console.log(this.state.newBill);
+    });
+  }
+
   formToggle = () => {
     if (this.state.showForm) {
       return (
-        <div className="">
+        <div >
           <form>
             Bill:
-            <input type="text"/>
+            <input type="text" name="name" onChange={this.handleChange} value={this.state.newBill.name}/>
             Amount:
-            <input type="text"/>
+            <input type="number" name="amount" onChange={this.handleChange} value={this.state.newBill.amount}/>
             Due Date: 
-            <input type='date'/>
-            <input type="submit"/>
+            <input type='date' />
+            <input type="Submit"/>
           </form>
         </div>
       )
@@ -34,7 +49,7 @@ class AddBill extends Component {
   render() {
 
     return (
-      <div>
+      <div >
         <button onClick={this.handleClick}>Add Bill</button>
         {this.formToggle()}
       </div>
