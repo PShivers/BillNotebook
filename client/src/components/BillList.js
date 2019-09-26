@@ -33,7 +33,7 @@ class BillList extends Component {
             .props
             .bills
             .map(bill => {
-              let amountPerPerson = (bill.amount / bill.copayers.length).toFixed(2)
+              let amountPerPerson = (bill.amount / (bill.copayers.length+1)).toFixed(2)
               return (
                 <tr key ={bill._id}>
                   <td>

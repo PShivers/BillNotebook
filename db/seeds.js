@@ -1,5 +1,6 @@
 const Bills = require('../models/billModel.js');
 const Months = require('../models/monthModel.js');
+const Copayers = require('../models/copayerModel.js')
 
 //bills
 Bills.deleteMany()
@@ -7,7 +8,7 @@ Bills.deleteMany()
     const Bill1 = new Bills({
       name: 'Rent',
       dueDate: '2019,8,1',
-      copayers: ["Rush","Owen"],
+      copayers: ['Rush', 'Owen'],
       month: 8,
       year: 2019,
       amount: 265,
@@ -19,7 +20,7 @@ Bills.deleteMany()
     const Bill2 = new Bills({
       name: 'Phone',
       dueDate: '2019,8,19',
-      copayers: ["Rush","Owen"],
+      copayers: ['Rush', 'Owen'],
       month: 8,
       year: 2019,
       amount: 69,
@@ -31,7 +32,7 @@ Bills.deleteMany()
     const Bill3 = new Bills({
       name: 'Car payment',
       dueDate: '10012019',
-      copayers: ["Rush","Owen"],
+      copayers: ['Rush', 'Owen'],
       month: 8,
       year: 2019,
       amount: 213.56,
@@ -43,7 +44,7 @@ Bills.deleteMany()
     const Bill4 = new Bills({
       name: 'Car payment',
       dueDate: '2019,10,01',
-      copayers: ["Rush","Owen"],
+      copayers: ['Rush', 'Owen'],
       month: 9,
       year: 2019,
       amount: 213.56,
@@ -173,4 +174,35 @@ Months.deleteMany()
       bills: []
     });
     return December.save();
+  });
+
+//copayers
+Copayers.deleteMany()
+  .then(() => {
+    const Copayer1 = new Copayers({
+      name: 'Rush',
+      email: 'paulsshivers@gmail.com'
+    });
+    return Copayer1.save();
+  })
+  .then(() => {
+    const Copayer2 = new Copayers({
+      name: 'Paul',
+      email: 'pengun86@gmail.com'
+    });
+    return Copayer2.save();
+  })
+  .then(() => {
+    const Copayer3 = new Copayers({
+      name: 'Owen',
+      email: 'pengun86@hotmail.com'
+    });
+    return Copayer3.save();
+  })
+  .then(() => {
+    const Copayer4 = new Copayers({
+      name: 'Chris',
+      email: 'paulsshivers@gmail.com'
+    });
+    return Copayer4.save();
   });
