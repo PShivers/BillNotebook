@@ -20,10 +20,10 @@ class BillList extends Component {
           <tr>
             <th className="single line">Bill</th>
             <th>Total Amount Due</th>
-            <th>Amount Per Person</th>
             <th>Co-Payers</th>
+            <th>Amount Per Person</th>
             <th>Due Date</th>
-            <th>Payment Status</th>
+            {/* <th>Payment Status</th> */}
           </tr>
         </thead>
         
@@ -33,6 +33,7 @@ class BillList extends Component {
             .props
             .bills
             .map(bill => {
+              let amountPerPerson = (bill.amount / bill.copayers.length).toFixed(2)
               return (
                 <tr key ={bill._id}>
                   <td>
@@ -41,18 +42,20 @@ class BillList extends Component {
                   <td className="single line">
                     ${bill.amount}
                   </td>
-                  <td className="right aligned">
-                    {bill.amountPerPerson}
+                  <td className="center aligned">
+                    {bill.copayers.map(copayer=>{
+                      return <div>{copayer}</div> 
+                    })}
                   </td>
-                  <td>{bill.copayers}</td>
+                  <td>${amountPerPerson}</td>
                   <td>{bill.dueDate}</td>
-                  <td>
+                  {/* <td>
                     <select>
                       <option value="unpaid">Unpaid</option>
                       <option value="paid">Paid</option>
                       <option value="withdrawn">Withdrawn</option>
                     </select>
-                  </td>
+                  </td> */}
 
                 </tr>
               )

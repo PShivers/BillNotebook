@@ -25,7 +25,7 @@ const BillsController = {
     try {
       // const year = req.query.year;
       // const month = req.query.month;
-      const bills = await Bills.find({ month: 8, year: 2019 });
+      const bills = await Bills.find({ month: req.params.month, year: req.params.year });
       res.json(bills);
     } catch (err) {
       console.log(err);

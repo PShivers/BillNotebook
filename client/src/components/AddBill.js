@@ -3,7 +3,8 @@ import React, {Component} from 'react';
 class AddBill extends Component {
 
   state = {
-    showForm: false
+    showForm: false,
+    newBill: {}
   }
 
   handleClick = () => {
@@ -15,7 +16,7 @@ class AddBill extends Component {
   formToggle = () => {
     if (this.state.showForm) {
       return (
-        <div>
+        <div className="">
           <form>
             Bill:
             <input type="text"/>

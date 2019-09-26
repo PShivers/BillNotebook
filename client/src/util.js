@@ -4,10 +4,9 @@ import axios from 'axios'
 //     return axios.get('/bills');
 //   }
 
-export function getBillsByMonthAndYear() {
+export function getBillsByMonthAndYear(req) {
   // console.log(req)
-  // return axios.get(`/billsbymonth?month=${req.month}&year=${req.year}`)
-  return axios.get(`/bills/2019/8`)
+  return axios.get(`/bills/${req.year}/${req.monthNum}`)
 }
 
 export function getMonth() {

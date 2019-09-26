@@ -9,41 +9,72 @@ import {getBillsByMonthAndYear} from './util'
 class App extends Component {
   state = {
     bills: [],
-    currentMonth: "",
-    currentYear: 0,
-    months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    monthNum: null,
+    monthName: "",
+    currentYear: null,
+    months: [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ]
   }
 
   componentDidMount = () => {
     let date = new Date();
     let currentYear = date.getFullYear();
-    let currentMonth = this.state.months[date.getMonth()];
-    getBillsByMonthAndYear({month:date.getMonth(), year: date.getFullYear()})
+    getBillsByMonthAndYear({
+      monthNum: date.getMonth(),
+      year: date.getFullYear()
+    })
     .then(res => {
+      console.log(res.data)
       let bills = res.data;
-        this.setState({bills, currentMonth, currentYear})
-      });
+      this.setState({
+        bills,
+        currentYear,
+        // monthNum: date.getMonth(),
+        monthName: this.state.months[date.getMonth()]
+      })
+    });
   }
 
   changeMonth = (x) => {
     console.log(this.state.currentMonth)
-    if(x){
-      this.setState({currentMonth: this.currentMonth++})
+    if (x) {
+      this.setState({
+        currentMonthNum: this.currentMonthNum++
+      })
     } else {
-      this.setState({currentMonth: this.currentMonth--})
+      this.setState({
+        currentMonthNum: this.currentMonthNum--
+      })
     }
-    
+
   }
 
-
   render() {
-    // console.log(this.state)
     return (
-      <div className="App" style={{backgroundColor: "rgba(0,75,0,.8)"}}>
+      <div
+        className="App"
+        style={{
+        backgroundColor: "rgba(0,75,0,.8)"
+      }}>
         <Header/>
-        <MonthSwitcher currentMonth={this.state.currentMonth} changeMonth={this.changeMonth}/>
-        <AddBill />
-        <BillList bills = {this.state.bills}/>
+        <MonthSwitcher
+          currentMonth={this.state.currentMonth}
+          monthName={this.state.monthName}
+          changeMonth={this.changeMonth}/>
+        <AddBill/>
+        <BillList bills={this.state.bills}/>
       </div>
     );
   }

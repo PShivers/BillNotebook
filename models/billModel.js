@@ -7,9 +7,10 @@ const Bill = new Schema({
   month: Number,
   year: Number,
   amount: Number,
+  copayers: Array,
   amountPerPerson: Number,
-  copayers: String,
-  isPaid: Boolean
+  isPaid: Boolean,
+  isWithdrawn: Boolean
 });
 
 module.exports = mongoose.model('Bill', Bill);
