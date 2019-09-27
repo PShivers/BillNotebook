@@ -1,6 +1,6 @@
 const Bills = require('../models/billModel.js');
 const Months = require('../models/monthModel.js');
-const Copayers = require('../models/copayerModel.js')
+const Copayers = require('../models/copayerModel.js');
 
 //bills
 Bills.deleteMany()
