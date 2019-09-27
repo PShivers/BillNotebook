@@ -3,14 +3,6 @@ import BillTableRow from './BillTableRow'
 
 class BillList extends Component {
 
-  isBillPaid = (bill) => {
-    if(bill.isPaid){
-      return <h2 className="ui center aligned header" style={{textDecoration: 'line-through'}} >{bill.name}</h2>
-    } else {
-      return <h2 className="ui center aligned header" >{bill.name}</h2>
-    }
-  }
-
   render() {
     const unpaidBills = [0];
     console.log(unpaidBills)
@@ -34,7 +26,7 @@ class BillList extends Component {
             .bills
             .map(bill => {
               return (
-                <BillTableRow bill={bill} isBillPaid={this.isBillPaid} handleBillNameClick={this.props.handleBillNameClick}/>
+                <BillTableRow bill={bill} isBillPaid={this.isBillPaid} handleBillNameClick={this.props.handleBillNameClick} handleBillAmountClick={this.props.handleBillAmountClick} />
               )
             })}
         </tbody>

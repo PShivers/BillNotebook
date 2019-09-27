@@ -28,7 +28,7 @@ class App extends Component {
     ]
   }
 
-  componentDidMount = () => {
+  getBills =()=> {
     let date = new Date();
     let currentYear = date.getFullYear();
     getBillsByMonthAndYear({
@@ -47,6 +47,10 @@ class App extends Component {
     });
   }
 
+  componentDidMount = () => {
+    this.getBills()
+  }
+
   changeMonth = (x) => {
     console.log(this.state.currentMonth)
     if (x) {
@@ -61,29 +65,19 @@ class App extends Component {
   }
 
   addBill=(newBill)=>{
-    console.log(newBill)
     addBill(newBill).then(res=>{console.log(res)})
   }
 
   handleBillNameClick = (bill) => {
     const newBill = {...bill};
     newBill.isPaid = !bill.isPaid;
-    updateBill(newBill).then(res=>{let date = new Date();
-      let currentYear = date.getFullYear();
-      getBillsByMonthAndYear({
-        monthNum: date.getMonth(),
-        year: date.getFullYear()
-      })
-      .then(res => {
-        console.log(res.data)
-        let bills = res.data;
-        this.setState({
-          bills,
-          currentYear,
-          // monthNum: date.getMonth(),
-          monthName: this.state.months[date.getMonth()]
-        })
-      });})
+    updateBill(newBill).then(res=>{this.getBills()})
+  }
+
+  handleBillAmountClick = (bill) => {
+    const newBill = {...bill};
+    newBill.isWithdrawn = !bill.isWithdrawn;
+    updateBill(newBill).then(res=>{this.getBills()})
   }
 
   render() {
@@ -99,7 +93,7 @@ class App extends Component {
           monthName={this.state.monthName}
           changeMonth={this.changeMonth}/>
         <AddBill addBill={this.addBill}/>
-        <BillList bills={this.state.bills} handleBillNameClick={this.handleBillNameClick} />
+        <BillList bills={this.state.bills} handleBillNameClick={this.handleBillNameClick} handleBillAmountClick={this.handleBillAmountClick} />
       </div>
     );
   }
