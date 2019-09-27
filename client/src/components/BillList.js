@@ -6,6 +6,14 @@ class BillList extends Component {
     console.log(id)
   }
 
+  isBillPaid = (bill) => {
+    if(bill.isPaid){
+      return <h2 className="ui center aligned header" style={{textDecoration: 'line-through'}} >{bill.name}</h2>
+    } else {
+      return <h2 className="ui center aligned header" >{bill.name}</h2>
+    }
+  }
+
 
 
   render() {
@@ -34,7 +42,7 @@ class BillList extends Component {
               return (
                 <tr key ={bill._id}>
                   <td onClick={()=>{this.handleBillNameClick(bill._id)}}>
-                    <h2 className="ui center aligned header" >{bill.name}</h2>
+                    {this.isBillPaid(bill)}
                   </td>
                   <td className="single line">
                     ${bill.amount}
