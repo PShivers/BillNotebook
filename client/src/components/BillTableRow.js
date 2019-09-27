@@ -5,7 +5,7 @@ const BillTableRow = (props) => {
     
     const bill = props.bill
     return ( <tr key ={bill._id}>
-        <td onClick={()=>{props.handleBillNameClick(bill)}}>
+        <td style={{cursor: "pointer"}} onClick={()=>{props.handleBillNameClick(bill)}}>
           {props.isBillPaid(bill)}
         </td>
         <td className="single line">

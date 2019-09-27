@@ -4,7 +4,7 @@ import Header from './components/Header'
 import MonthSwitcher from './components/MonthSwitcher';
 import AddBill from './components/AddBill'
 
-import {getBillsByMonthAndYear, addBill} from './util'
+import {getBillsByMonthAndYear, addBill, updateBill} from './util'
 
 class App extends Component {
   state = {
@@ -65,6 +65,27 @@ class App extends Component {
     addBill(newBill).then(res=>{console.log(res)})
   }
 
+  handleBillNameClick = (bill) => {
+    const newBill = {...bill};
+    newBill.isPaid = !bill.isPaid;
+    updateBill(newBill).then(res=>{let date = new Date();
+      let currentYear = date.getFullYear();
+      getBillsByMonthAndYear({
+        monthNum: date.getMonth(),
+        year: date.getFullYear()
+      })
+      .then(res => {
+        console.log(res.data)
+        let bills = res.data;
+        this.setState({
+          bills,
+          currentYear,
+          // monthNum: date.getMonth(),
+          monthName: this.state.months[date.getMonth()]
+        })
+      });})
+  }
+
   render() {
     return (
       <div
@@ -78,7 +99,7 @@ class App extends Component {
           monthName={this.state.monthName}
           changeMonth={this.changeMonth}/>
         <AddBill addBill={this.addBill}/>
-        <BillList bills={this.state.bills}/>
+        <BillList bills={this.state.bills} handleBillNameClick={this.handleBillNameClick} />
       </div>
     );
   }

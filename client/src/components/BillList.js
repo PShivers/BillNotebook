@@ -1,14 +1,7 @@
 import React, {Component} from 'react';
 import BillTableRow from './BillTableRow'
-import { updateBill } from '../util';
 
 class BillList extends Component {
-
-  handleBillNameClick = (bill) => {
-    const newBill = {...bill};
-    newBill.isPaid = !bill.isPaid;
-    updateBill(newBill).then(res=>{console.log(res.data)})
-  }
 
   isBillPaid = (bill) => {
     if(bill.isPaid){
@@ -17,8 +10,6 @@ class BillList extends Component {
       return <h2 className="ui center aligned header" >{bill.name}</h2>
     }
   }
-
-
 
   render() {
     const unpaidBills = [0];
@@ -43,7 +34,7 @@ class BillList extends Component {
             .bills
             .map(bill => {
               return (
-                <BillTableRow bill={bill} isBillPaid={this.isBillPaid} handleBillNameClick={this.handleBillNameClick}/>
+                <BillTableRow bill={bill} isBillPaid={this.isBillPaid} handleBillNameClick={this.props.handleBillNameClick}/>
               )
             })}
         </tbody>
@@ -57,7 +48,7 @@ class BillList extends Component {
                   }
                 })
               }
-              {unpaidBills.reduce((a,c)=>{return a+c})}
+              ${unpaidBills.reduce((a,c)=>{return a+c})}
             </th>
             <th></th>
             <th></th>
