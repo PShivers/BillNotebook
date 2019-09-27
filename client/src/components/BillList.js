@@ -35,7 +35,7 @@ class BillList extends Component {
             <th className="single line">Total Due</th>
             <th>
               {this.props.bills.map(bill=>{
-                if(!bill.isPaid){ 
+                if(!bill.isWithdrawn){ 
                   unpaidBills.push(bill.amount)
                   }
                 })

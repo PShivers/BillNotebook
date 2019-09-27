@@ -75,9 +75,13 @@ class App extends Component {
   }
 
   handleBillAmountClick = (bill) => {
+    if(bill.isPaid){
     const newBill = {...bill};
     newBill.isWithdrawn = !bill.isWithdrawn;
     updateBill(newBill).then(res=>{this.getBills()})
+    } else {
+      alert(`Bill must be marked as paid before it can be marked as withdrawn.`)
+    }
   }
 
   render() {
