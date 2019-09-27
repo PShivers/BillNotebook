@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import BillTableRow from './BillTableRow'
 import { updateBill } from '../util';
 
 class BillList extends Component {
@@ -41,23 +42,8 @@ class BillList extends Component {
             .props
             .bills
             .map(bill => {
-              let amountPerPerson = (bill.amount / (bill.copayers.length+1)).toFixed(2)
               return (
-                <tr key ={bill._id}>
-                  <td onClick={()=>{this.handleBillNameClick(bill)}}>
-                    {this.isBillPaid(bill)}
-                  </td>
-                  <td className="single line">
-                    ${bill.amount}
-                  </td>
-                  <td className="center aligned">
-                    {bill.copayers.map(copayer=>{
-                      return <div>{copayer}</div> 
-                    })}
-                  </td>
-                  <td>${amountPerPerson}</td>
-                  <td>{bill.dueDate}</td>
-                </tr>
+                <BillTableRow bill={bill} isBillPaid={this.isBillPaid} handleBillNameClick={this.handleBillNameClick}/>
               )
             })}
         </tbody>
