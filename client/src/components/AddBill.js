@@ -18,11 +18,17 @@ class AddBill extends Component {
     })
   }
 
+  handleSubmitClick = (event) => {
+    event.preventDefault();
+    this.props.addBill(this.state.newBill)
+  }
+
   handleChange=(event)=>{
     const attributeName = event.target.name;
     const attributeValue = event.target.value;
     const newBill = { ...this.state.newBill };
     newBill[attributeName] = attributeValue;
+    
     this.setState({ newBill }, () => {
       console.log(this.state.newBill);
     });
@@ -38,8 +44,8 @@ class AddBill extends Component {
             Amount:
             <input type="number" name="amount" onChange={this.handleChange} value={this.state.newBill.amount}/>
             Due Date: 
-            <input type='date' />
-            <input type="Submit"/>
+            <input type='date' onChange={this.handleChange} name="dueDate"/>
+            <input type="Submit" onClick={this.handleSubmitClick}/>
           </form>
         </div>
       )

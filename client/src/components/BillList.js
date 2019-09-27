@@ -1,19 +1,16 @@
 import React, {Component} from 'react';
 
 class BillList extends Component {
-  state = {
-    bills: []
+
+  handleBillNameClick = (id) => {
+    console.log(id)
   }
 
-  // componentDidMount = () => {
-  //   getBillsByMonthAndYear().then(res => {
-  //     console.log(res)
-  //     let bills = res.data;
-  //     this.setState({bills})
-  //   })
-  // }
+
 
   render() {
+    const unpaidBills = [0];
+    console.log(unpaidBills)
     return (
       <table className="ui celled padded table">
         <thead>
@@ -36,8 +33,8 @@ class BillList extends Component {
               let amountPerPerson = (bill.amount / (bill.copayers.length+1)).toFixed(2)
               return (
                 <tr key ={bill._id}>
-                  <td>
-                    <h2 className="ui center aligned header">{bill.name}</h2>
+                  <td onClick={()=>{this.handleBillNameClick(bill._id)}}>
+                    <h2 className="ui center aligned header" >{bill.name}</h2>
                   </td>
                   <td className="single line">
                     ${bill.amount}
@@ -61,6 +58,24 @@ class BillList extends Component {
               )
             })}
         </tbody>
+        <tfoot>
+          <tr>
+            <th className="single line">Total Due</th>
+            <th>
+              {this.props.bills.map(bill=>{
+                if(!bill.isPaid){ 
+                  unpaidBills.push(bill.amount)
+                  }
+                })
+              }
+              {unpaidBills.reduce((a,c)=>{return a+c})}
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+            {/* <th>Payment Status</th> */}
+          </tr>
+        </tfoot>
       </table>
     )
   }

@@ -60,8 +60,9 @@ class App extends Component {
     }
   }
 
-  addBill=(bill)=>{
-    addBill(bill)
+  addBill=(newBill)=>{
+    console.log(newBill)
+    addBill(newBill).then(res=>{console.log(res)})
   }
 
   render() {
@@ -76,7 +77,7 @@ class App extends Component {
           currentMonth={this.state.currentMonth}
           monthName={this.state.monthName}
           changeMonth={this.changeMonth}/>
-        <AddBill/>
+        <AddBill addBill={this.addBill}/>
         <BillList bills={this.state.bills}/>
       </div>
     );
