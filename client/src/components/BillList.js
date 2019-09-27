@@ -1,20 +1,7 @@
 import React, {Component} from 'react';
+import BillTableRow from './BillTableRow'
 
 class BillList extends Component {
-
-  handleBillNameClick = (id) => {
-    console.log(id)
-  }
-
-  isBillPaid = (bill) => {
-    if(bill.isPaid){
-      return <h2 className="ui center aligned header" style={{textDecoration: 'line-through'}} >{bill.name}</h2>
-    } else {
-      return <h2 className="ui center aligned header" >{bill.name}</h2>
-    }
-  }
-
-
 
   render() {
     const unpaidBills = [0];
@@ -38,31 +25,8 @@ class BillList extends Component {
             .props
             .bills
             .map(bill => {
-              let amountPerPerson = (bill.amount / (bill.copayers.length+1)).toFixed(2)
               return (
-                <tr key ={bill._id}>
-                  <td onClick={()=>{this.handleBillNameClick(bill._id)}}>
-                    {this.isBillPaid(bill)}
-                  </td>
-                  <td className="single line">
-                    ${bill.amount}
-                  </td>
-                  <td className="center aligned">
-                    {bill.copayers.map(copayer=>{
-                      return <div>{copayer}</div> 
-                    })}
-                  </td>
-                  <td>${amountPerPerson}</td>
-                  <td>{bill.dueDate}</td>
-                  {/* <td>
-                    <select>
-                      <option value="unpaid">Unpaid</option>
-                      <option value="paid">Paid</option>
-                      <option value="withdrawn">Withdrawn</option>
-                    </select>
-                  </td> */}
-
-                </tr>
+                <BillTableRow bill={bill} isBillPaid={this.isBillPaid} handleBillNameClick={this.props.handleBillNameClick} handleBillAmountClick={this.props.handleBillAmountClick} />
               )
             })}
         </tbody>
@@ -71,17 +35,16 @@ class BillList extends Component {
             <th className="single line">Total Due</th>
             <th>
               {this.props.bills.map(bill=>{
-                if(!bill.isPaid){ 
+                if(!bill.isWithdrawn){ 
                   unpaidBills.push(bill.amount)
                   }
                 })
               }
-              {unpaidBills.reduce((a,c)=>{return a+c})}
+              ${unpaidBills.reduce((a,c)=>{return a+c})}
             </th>
             <th></th>
             <th></th>
             <th></th>
-            {/* <th>Payment Status</th> */}
           </tr>
         </tfoot>
       </table>

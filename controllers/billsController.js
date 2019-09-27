@@ -48,6 +48,7 @@ const BillsController = {
 
   update: async (req, res) => {
     try {
+      console.log('update got to controller' + req.params.id)
       const billId = req.params.id;
       const updatedBill = req.body;
       const savedBill = await Bills.findByIdAndUpdate(billId, updatedBill, {

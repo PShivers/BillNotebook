@@ -4,7 +4,7 @@ import Header from './components/Header'
 import MonthSwitcher from './components/MonthSwitcher';
 import AddBill from './components/AddBill'
 
-import {getBillsByMonthAndYear, addBill} from './util'
+import {getBillsByMonthAndYear, addBill, updateBill} from './util'
 
 class App extends Component {
   state = {
@@ -28,7 +28,7 @@ class App extends Component {
     ]
   }
 
-  componentDidMount = () => {
+  getBills =()=> {
     let date = new Date();
     let currentYear = date.getFullYear();
     getBillsByMonthAndYear({
@@ -47,6 +47,10 @@ class App extends Component {
     });
   }
 
+  componentDidMount = () => {
+    this.getBills()
+  }
+
   changeMonth = (x) => {
     console.log(this.state.currentMonth)
     if (x) {
@@ -61,8 +65,23 @@ class App extends Component {
   }
 
   addBill=(newBill)=>{
-    console.log(newBill)
     addBill(newBill).then(res=>{console.log(res)})
+  }
+
+  handleBillNameClick = (bill) => {
+    const newBill = {...bill};
+    newBill.isPaid = !bill.isPaid;
+    updateBill(newBill).then(res=>{this.getBills()})
+  }
+
+  handleBillAmountClick = (bill) => {
+    if(bill.isPaid){
+    const newBill = {...bill};
+    newBill.isWithdrawn = !bill.isWithdrawn;
+    updateBill(newBill).then(res=>{this.getBills()})
+    } else {
+      alert(`Bill must be marked as paid before it can be marked as withdrawn.`)
+    }
   }
 
   render() {
@@ -78,7 +97,7 @@ class App extends Component {
           monthName={this.state.monthName}
           changeMonth={this.changeMonth}/>
         <AddBill addBill={this.addBill}/>
-        <BillList bills={this.state.bills}/>
+        <BillList bills={this.state.bills} handleBillNameClick={this.handleBillNameClick} handleBillAmountClick={this.handleBillAmountClick} />
       </div>
     );
   }

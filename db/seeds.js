@@ -12,7 +12,8 @@ Bills.deleteMany()
       month: 8,
       year: 2019,
       amount: 265,
-      isPaid: true
+      isPaid: true,
+      isWithdrawn: true
     });
     return Bill1.save();
   })
@@ -24,7 +25,8 @@ Bills.deleteMany()
       month: 8,
       year: 2019,
       amount: 69,
-      isPaid: false
+      isPaid: false,
+      isWithdrawn: false
     });
     return Bill2.save();
   })
@@ -36,7 +38,8 @@ Bills.deleteMany()
       month: 8,
       year: 2019,
       amount: 213.56,
-      isPaid: false
+      isPaid: false,
+      isWithdrawn: false
     });
     return Bill3.save();
   })
@@ -48,7 +51,8 @@ Bills.deleteMany()
       month: 9,
       year: 2019,
       amount: 213.56,
-      isPaid: false
+      isPaid: false,
+      isWithdrawn: true
     });
     return Bill4.save();
   });
