@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
+import { updateBill } from '../util';
 
 class BillList extends Component {
 
-  handleBillNameClick = (id) => {
-    console.log(id)
+  handleBillNameClick = (bill) => {
+    const newBill = {...bill};
+    newBill.isPaid = !bill.isPaid;
+    updateBill(newBill).then(res=>{console.log(res.data)})
   }
 
   isBillPaid = (bill) => {
@@ -41,7 +44,7 @@ class BillList extends Component {
               let amountPerPerson = (bill.amount / (bill.copayers.length+1)).toFixed(2)
               return (
                 <tr key ={bill._id}>
-                  <td onClick={()=>{this.handleBillNameClick(bill._id)}}>
+                  <td onClick={()=>{this.handleBillNameClick(bill)}}>
                     {this.isBillPaid(bill)}
                   </td>
                   <td className="single line">
@@ -54,14 +57,6 @@ class BillList extends Component {
                   </td>
                   <td>${amountPerPerson}</td>
                   <td>{bill.dueDate}</td>
-                  {/* <td>
-                    <select>
-                      <option value="unpaid">Unpaid</option>
-                      <option value="paid">Paid</option>
-                      <option value="withdrawn">Withdrawn</option>
-                    </select>
-                  </td> */}
-
                 </tr>
               )
             })}
@@ -81,7 +76,6 @@ class BillList extends Component {
             <th></th>
             <th></th>
             <th></th>
-            {/* <th>Payment Status</th> */}
           </tr>
         </tfoot>
       </table>
