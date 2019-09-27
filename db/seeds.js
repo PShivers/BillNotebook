@@ -8,7 +8,8 @@ Bills.deleteMany()
     const Bill1 = new Bills({
       name: 'Rent',
       dueDate: '2019,8,1',
-      copayers: ['Rush', 'Owen'],
+      hasPaid: ['Rush', 'Owen'],
+      hasNotPaid: ['Rush', 'Owen'],
       month: 8,
       year: 2019,
       amount: 265,
@@ -21,7 +22,8 @@ Bills.deleteMany()
     const Bill2 = new Bills({
       name: 'Phone',
       dueDate: '2019,8,19',
-      copayers: ['Rush', 'Owen'],
+      hasPaid: ['Rush', 'Owen'],
+      hasNotPaid: ['Rush', 'Owen'],
       month: 8,
       year: 2019,
       amount: 69,
@@ -34,7 +36,8 @@ Bills.deleteMany()
     const Bill3 = new Bills({
       name: 'Car payment',
       dueDate: '10012019',
-      copayers: ['Rush', 'Owen'],
+      hasPaid: ['Rush', 'Owen'],
+      hasNotPaid: ['Rush', 'Owen'],
       month: 8,
       year: 2019,
       amount: 213.56,
@@ -47,7 +50,8 @@ Bills.deleteMany()
     const Bill4 = new Bills({
       name: 'Car payment',
       dueDate: '2019,10,01',
-      copayers: ['Rush', 'Owen'],
+      hasPaid: ['Rush', 'Owen'],
+      hasNotPaid: ['Rush', 'Owen'],
       month: 9,
       year: 2019,
       amount: 213.56,

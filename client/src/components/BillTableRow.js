@@ -18,6 +18,10 @@ const BillTableRow = (props) => {
           return <h2 className="ui center aligned header" >{bill.name}</h2>
         }
       }
+
+      const togglePaidStatus = (bill) =>{
+          console.log(bill)
+      }
     
     const bill = props.bill
     return ( <tr key ={bill._id}>
@@ -28,11 +32,14 @@ const BillTableRow = (props) => {
           {isBillWithdrawn(bill)}
         </td>
         <td className="center aligned">
-          {bill.copayers.map(copayer=>{
-            return <div>{copayer}</div> 
+          {bill.hasNotPaid.map(copayer=>{
+            return <div onClick={()=>{togglePaidStatus(copayer)}} >{copayer}</div> 
+          })}
+          {bill.hasPaid.map(copayer=>{
+            return <div onClick={()=>{togglePaidStatus(copayer)}}>{copayer}</div> 
           })}
         </td>
-        <td>${(bill.amount / (bill.copayers.length+1)).toFixed(2)}</td>
+        <td>${(bill.amount / ((bill.hasNotPaid.length+1)+(bill.hasPaid.length+1))).toFixed(2)}</td>
         <td>{bill.dueDate}</td>
       </tr>
     );

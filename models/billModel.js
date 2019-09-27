@@ -7,7 +7,8 @@ const Bill = new Schema({
   month: Number,
   year: Number,
   amount: Number,
-  copayers: Array,
+  hasNotPaid: Array,
+  hasPaid: Array,
   amountPerPerson: Number,
   isPaid: Boolean,
   isWithdrawn: Boolean
