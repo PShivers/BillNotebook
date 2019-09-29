@@ -7,7 +7,7 @@ Bills.deleteMany()
   .then(() => {
     const Bill1 = new Bills({
       name: 'Rent',
-      dueDate: '2019,8,1',
+      dueDate: '09/01',
       hasPaid: ['Rush', 'Owen'],
       hasNotPaid: ['Rush', 'Owen'],
       month: 8,
@@ -21,7 +21,7 @@ Bills.deleteMany()
   .then(() => {
     const Bill2 = new Bills({
       name: 'Phone',
-      dueDate: '2019,8,19',
+      dueDate: '09/19',
       hasPaid: ['Rush', 'Owen'],
       hasNotPaid: ['Rush', 'Owen'],
       month: 8,
@@ -35,10 +35,10 @@ Bills.deleteMany()
   .then(() => {
     const Bill3 = new Bills({
       name: 'Car payment',
-      dueDate: '10012019',
+      dueDate: '10/01',
       hasPaid: ['Rush', 'Owen'],
       hasNotPaid: ['Rush', 'Owen'],
-      month: 8,
+      month: 9,
       year: 2019,
       amount: 213.56,
       isPaid: false,
@@ -49,7 +49,7 @@ Bills.deleteMany()
   .then(() => {
     const Bill4 = new Bills({
       name: 'Car payment',
-      dueDate: '2019,10,01',
+      dueDate: '09/01',
       hasPaid: ['Rush', 'Owen'],
       hasNotPaid: ['Rush', 'Owen'],
       month: 9,
