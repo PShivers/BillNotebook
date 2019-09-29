@@ -65,7 +65,7 @@ class App extends Component {
   }
 
   addBill=(newBill)=>{
-    addBill(newBill).then(res=>{console.log(res)})
+    addBill(newBill).then(res=>{console.log(res.data)})
   }
 
   handleBillNameClick = (bill) => {

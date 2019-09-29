@@ -20,7 +20,13 @@ class AddBill extends Component {
 
   handleSubmitClick = (event) => {
     event.preventDefault();
-    this.props.addBill(this.state.newBill)
+    const newBill = {...this.state.newBill};
+    const dueDate = newBill.dueDate.split('-');
+    newBill.month = parseInt(dueDate[1])-1;
+    newBill.year = parseInt(dueDate[0]);
+    newBill.dueDate = dueDate[1] + "/" + dueDate[2];
+    console.log(newBill)
+    this.props.addBill(newBill)
   }
 
   handleChange=(event)=>{
@@ -30,7 +36,7 @@ class AddBill extends Component {
     newBill[attributeName] = attributeValue;
     
     this.setState({ newBill }, () => {
-      console.log(this.state.newBill);
+      
     });
   }
 
