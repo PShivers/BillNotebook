@@ -19,6 +19,14 @@ const BillTableRow = (props) => {
         }
       }
 
+      const hasCopayers = (bill) => {
+          if (bill.hasNotPaid.length > 0 || bill.hasPaid.length > 0){
+            return <td>${(bill.amount / ((bill.hasNotPaid.length)+(bill.hasPaid.length)+1)).toFixed(2)}</td>
+          } else {
+              return <td></td>
+          }
+      }
+
       const togglePaidStatus = (bill) =>{
           console.log(bill)
       }
@@ -39,7 +47,7 @@ const BillTableRow = (props) => {
             return <div onClick={()=>{togglePaidStatus(copayer)}}>{copayer}</div> 
           })}
         </td>
-        <td>${(bill.amount / ((bill.hasNotPaid.length+1)+(bill.hasPaid.length+1))).toFixed(2)}</td>
+        {hasCopayers(bill)}
         <td>{bill.dueDate}</td>
       </tr>
     );

@@ -28,7 +28,7 @@ class App extends Component {
     ]
   }
 
-  getBills =()=> {
+  getBillsForCurrentMonth =()=> {
     let date = new Date();
     let currentYear = date.getFullYear();
     getBillsByMonthAndYear({
@@ -48,7 +48,7 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    this.getBills()
+    this.getBillsForCurrentMonth()
   }
 
   changeMonth = (x) => {
@@ -65,20 +65,20 @@ class App extends Component {
   }
 
   addBill=(newBill)=>{
-    addBill(newBill).then(res=>{console.log(res.data)})
+    addBill(newBill).then(res=>{this.getBillsForCurrentMonth()})
   }
 
   handleBillNameClick = (bill) => {
     const newBill = {...bill};
     newBill.isPaid = !bill.isPaid;
-    updateBill(newBill).then(res=>{this.getBills()})
+    updateBill(newBill).then(res=>{this.getBillsForCurrentMonth()})
   }
 
   handleBillAmountClick = (bill) => {
     if(bill.isPaid){
     const newBill = {...bill};
     newBill.isWithdrawn = !bill.isWithdrawn;
-    updateBill(newBill).then(res=>{this.getBills()})
+    updateBill(newBill).then(res=>{this.getBillsForCurrentMonth()})
     } else {
       alert(`Bill must be marked as paid before it can be marked as withdrawn.`)
     }
