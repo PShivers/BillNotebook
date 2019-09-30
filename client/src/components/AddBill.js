@@ -20,6 +20,7 @@ class AddBill extends Component {
 
   handleSubmitClick = (event) => {
     event.preventDefault();
+    this.handleClick();
     const newBill = {...this.state.newBill};
     const dueDate = newBill.dueDate.split('-');
     newBill.month = parseInt(dueDate[1])-1;

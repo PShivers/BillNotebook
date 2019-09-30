@@ -2,12 +2,14 @@ import React, {Component} from 'react';
 import BillList from './components/BillList';
 import Header from './components/Header'
 import MonthSwitcher from './components/MonthSwitcher';
-import AddBill from './components/AddBill'
+import AddBill from './components/AddBill';
+import Modal from './components/Modal'
 
 import {getBillsByMonthAndYear, addBill, updateBill, deleteBill} from './util'
 
 class App extends Component {
   state = {
+    modal: false,
     bills: [],
     monthNum: null,
     monthName: "",
@@ -26,6 +28,10 @@ class App extends Component {
       "November",
       "December"
     ]
+  }
+
+  toggleModal=()=>{
+    this.setState({modal: !this.state.modal})
   }
 
   getBillsForCurrentMonth =()=> {
@@ -105,6 +111,12 @@ class App extends Component {
     })
   }
 
+  showModal = () => {
+    if(this.state.modal) {
+     return <Modal toggleModal={this.toggleModal}/>
+    }
+  }
+
   render() {
     return (
       <div
@@ -112,11 +124,14 @@ class App extends Component {
         style={{
         backgroundColor: "rgba(0,75,0,.8)"
       }}>
+        {this.showModal()}
         <Header/>
         <MonthSwitcher
           currentMonth={this.state.currentMonth}
           monthName={this.state.monthName}
           changeMonth={this.changeMonth}/>
+
+
         <AddBill addBill={this.addBill}/>
         <BillList 
           bills={this.state.bills} 
