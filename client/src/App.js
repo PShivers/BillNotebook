@@ -72,9 +72,13 @@ class App extends Component {
   }
 
   handleBillNameClick = (bill) => {
-    const newBill = {...bill};
-    newBill.isPaid = !bill.isPaid;
-    updateBill(newBill).then(res=>{this.getBillsForCurrentMonth()})
+    if(!bill.isWithdrawn){
+      const newBill = {...bill};
+      newBill.isPaid = !bill.isPaid;
+      updateBill(newBill).then(res=>{this.getBillsForCurrentMonth()})
+    } else{
+      alert('Cannot remove Paid status if Bill has been marked as withdrawn')
+    }
   }
 
   handleBillAmountClick = (bill) => {
