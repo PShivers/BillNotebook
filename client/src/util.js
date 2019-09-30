@@ -20,6 +20,11 @@ export function updateBill(bill){
   return axios.put(`/bills/${bill._id}`, bill)
 }
 
+export function deleteBill(bill){
+  return axios.delete(`/bills/${bill._id}`)
+}
+
+
 //==================
 //== Months ========
 //==================

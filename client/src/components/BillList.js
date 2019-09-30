@@ -5,7 +5,6 @@ class BillList extends Component {
 
   render() {
     const unpaidBills = [0];
-    console.log(unpaidBills)
     return (
       <table className="ui celled padded table">
         <thead>
@@ -26,7 +25,14 @@ class BillList extends Component {
             .bills
             .map(bill => {
               return (
-                <BillTableRow bill={bill} isBillPaid={this.isBillPaid} handleBillNameClick={this.props.handleBillNameClick} handleBillAmountClick={this.props.handleBillAmountClick} />
+                <BillTableRow 
+                  bill={bill} 
+                  deleteBill={this.props.deleteBill}
+                  isBillPaid={this.isBillPaid} 
+                  handleBillNameClick={this.props.handleBillNameClick} 
+                  handleBillAmountClick={this.props.handleBillAmountClick} 
+                  handleCopayerToggle={this.props.handleCopayerToggle}
+                />
               )
             })}
         </tbody>

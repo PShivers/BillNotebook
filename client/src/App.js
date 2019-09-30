@@ -4,7 +4,7 @@ import Header from './components/Header'
 import MonthSwitcher from './components/MonthSwitcher';
 import AddBill from './components/AddBill'
 
-import {getBillsByMonthAndYear, addBill, updateBill} from './util'
+import {getBillsByMonthAndYear, addBill, updateBill, deleteBill} from './util'
 
 class App extends Component {
   state = {
@@ -36,7 +36,6 @@ class App extends Component {
       year: date.getFullYear()
     })
     .then(res => {
-      console.log(res.data)
       let bills = res.data;
       this.setState({
         bills,
@@ -68,6 +67,10 @@ class App extends Component {
     addBill(newBill).then(res=>{this.getBillsForCurrentMonth()})
   }
 
+  deleteBill =(bill)=>{
+    deleteBill(bill)
+  }
+
   handleBillNameClick = (bill) => {
     const newBill = {...bill};
     newBill.isPaid = !bill.isPaid;
@@ -84,6 +87,20 @@ class App extends Component {
     }
   }
 
+  handleCopayerToggle(bill, copayer){
+    const updatedBill = {...bill};
+    if(bill.hasPaid.includes(copayer)){
+      updatedBill.hasPaid = bill.hasPaid.filter(item=> item !== copayer);
+      updatedBill.hasNotPaid = [...bill.hasNotPaid,copayer];
+    } else if(bill.hasNotPaid.includes(copayer)){
+      updatedBill.hasNotPaid = bill.hasNotPaid.filter(item=> item !== copayer);
+      updatedBill.hasPaid = [...bill.hasPaid,copayer];
+    }
+    updateBill(updatedBill).then(res=>{
+      this.getBillsForCurrentMonth();
+    })
+  }
+
   render() {
     return (
       <div
@@ -97,7 +114,12 @@ class App extends Component {
           monthName={this.state.monthName}
           changeMonth={this.changeMonth}/>
         <AddBill addBill={this.addBill}/>
-        <BillList bills={this.state.bills} handleBillNameClick={this.handleBillNameClick} handleBillAmountClick={this.handleBillAmountClick} />
+        <BillList 
+          bills={this.state.bills} 
+          deleteBill={this.deleteBill}
+          handleBillNameClick={this.handleBillNameClick} 
+          handleBillAmountClick={this.handleBillAmountClick} 
+          handleCopayerToggle={this.handleCopayerToggle}/>
       </div>
     );
   }
