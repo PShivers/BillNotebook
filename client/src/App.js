@@ -34,19 +34,32 @@ class App extends Component {
     this.setState({modal: !this.state.modal})
   }
 
+  //function taken from https://stackoverflow.com/questions/8175093/simple-function-to-sort-an-array-of-objects/8175221#8175221
+  sort_by_key=(array, key)=>{
+    return array.sort((a, b) => {
+      var x = a[key]; 
+      var y = b[key];
+      return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+}
+
   getBillsForCurrentMonth =()=> {
+    //store current date in a variable called date
     let date = new Date();
+    //from the variable date pull out the year and assign it to variable 'current year'
     let currentYear = date.getFullYear();
     getBillsByMonthAndYear({
       monthNum: date.getMonth(),
       year: date.getFullYear()
     })
     .then(res => {
+      //assigns the bills return from AJAX req to a variable called 'bills'
       let bills = res.data;
+      //sorts bills by day
+      const sortedBills = this.sort_by_key(bills, "day");
       this.setState({
-        bills,
+        bills: sortedBills,
         currentYear,
-        // monthNum: date.getMonth(),
         monthName: this.state.months[date.getMonth()]
       })
     });

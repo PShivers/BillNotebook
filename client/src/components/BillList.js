@@ -19,7 +19,6 @@ class BillList extends Component {
             <th>Co-Payers</th>
             <th>Amount Per Person</th>
             <th>Due Date</th>
-            {/* <th>Payment Status</th> */}
           </tr>
         </thead>
         

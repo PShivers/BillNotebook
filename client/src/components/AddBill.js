@@ -34,14 +34,7 @@ class AddBill extends Component {
     newBill.dueDate = dueDate[1] + "/" + dueDate[2];
     console.log(newBill)
     this.props.addBill(newBill);
-    this.handleClick();
-    
-  }
-
-  clearForm = () => {
-    this.setState({
-      
-    })
+    this.handleClick();   
   }
 
   handleChange=(event)=>{
@@ -49,10 +42,7 @@ class AddBill extends Component {
     const attributeValue = event.target.value;
     const newBill = { ...this.state.newBill };
     newBill[attributeName] = attributeValue;
-    
-    this.setState({ newBill }, () => {
-      
-    });
+    this.setState({ newBill }, () => {});
   }
 
   formToggle = () => {
