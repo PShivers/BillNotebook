@@ -25,8 +25,6 @@ class CreateCopayer extends Component {
     } 
 
     handleSubmit = (event) => {
-        event.preventDefault();
-        console.log(this.state.newCopayer)
         this.props.createCopayer(this.state.newCopayer);
     }
 
