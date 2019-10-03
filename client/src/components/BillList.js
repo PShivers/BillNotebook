@@ -1,9 +1,19 @@
 import React, {Component} from 'react';
-import BillTableRow from './BillTableRow'
+import BillTableRow from './BillTableRow';
+
+import {getCopayers} from '../util'
 
 class BillList extends Component {
   state = {
-    total: []
+    total: [],
+    copayers: []
+  }
+
+  componentDidMount(){
+    getCopayers().then(res=>{
+      const copayers = res.data;
+      this.setState({copayers})
+    });
   }
 
   render() {
@@ -14,12 +24,19 @@ class BillList extends Component {
       <table className="ui celled padded table">
         <thead>
           <tr>
+
             <th className="single line">Bill</th>
+
             <th>Total Amount Due</th>
+
             <th>Co-Payers</th>
+
             <th>Amount Per Person</th>
+
             <th>Due Date</th>
+
           </tr>
+
         </thead>
         
         <tbody>
@@ -33,6 +50,7 @@ class BillList extends Component {
                 <BillTableRow 
                   bill={bill} 
                   deleteBill={this.props.deleteBill}
+                  copayers={this.state.copayers}
                   isBillPaid={this.isBillPaid} 
                   handleBillNameClick={this.props.handleBillNameClick} 
                   handleBillAmountClick={this.props.handleBillAmountClick} 

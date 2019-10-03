@@ -1,5 +1,6 @@
 import React from 'react';
-import { updateBill } from '../util';
+import CopayerPopup from './CopayerPopup';
+
 
 
 const BillTableRow = (props) => {
@@ -53,6 +54,7 @@ const BillTableRow = (props) => {
         </td>
 
         <td className="center aligned">
+        <CopayerPopup copayers={props.copayers}/>
           {bill.hasNotPaid.map(copayer=>{
             return <div onClick={()=>{props.handleCopayerToggle(bill, copayer)}} key={copayer} >{copayer}</div> 
           })}

@@ -37,6 +37,10 @@ export function getMonth() {
 //== Copayers ======
 //==================
 
+export function getCopayers(){
+  return axios.get(`/copayers`)
+}
+
 export function createCopayer(copayer){
   return axios.post(`/copayers`, copayer)
 }
