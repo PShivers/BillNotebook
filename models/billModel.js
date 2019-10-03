@@ -8,6 +8,7 @@ const Bill = new Schema({
   day: Number,
   year: Number,
   amount: Number,
+  copayers: [],
   hasNotPaid: Array,
   hasPaid: Array,
   amountPerPerson: Number,
