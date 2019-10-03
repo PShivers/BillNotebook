@@ -1,4 +1,5 @@
 import React from 'react';
+import { updateBill } from '../util';
 
 
 const BillTableRow = (props) => {
@@ -18,22 +19,52 @@ const BillTableRow = (props) => {
           return <h2 className="ui center aligned header" >{bill.name}</h2>
         }
       }
+
+      const hasCopayers = (bill) => {
+          if (bill.hasNotPaid.length > 0 || bill.hasPaid.length > 0){
+            return <td>${(bill.amount / ((bill.hasNotPaid.length)+(bill.hasPaid.length)+1)).toFixed(2)}</td>
+          } else {
+              return <td></td>
+          }
+      }
     
     const bill = props.bill
     return ( <tr key ={bill._id}>
-        <td style={{cursor: "pointer"}} onClick={()=>{props.handleBillNameClick(bill)}}>
-          {isBillPaid(bill)}
+        
+        <td >
+            <span 
+                onClick={()=>{props.handleBillNameClick(bill)}} 
+                style={{cursor: "pointer"}} 
+            >
+                {isBillPaid(bill)}
+            </span>
+
+            <div style={{display: "flex", justifyContent: "center"}} onClick={()=>{props.deleteBill(bill)}} >
+                <button>Delete Bill</button>
+            </div>
+
         </td>
-        <td className="single line" style={{cursor: "pointer"}} onClick={()=>{props.handleBillAmountClick(bill)}} >
-          {isBillWithdrawn(bill)}
+
+        <td className="single line"  onClick={()=>{props.handleBillAmountClick(bill)}} >
+            <div style={{cursor: "pointer"}} >
+                {isBillWithdrawn(bill)}
+            </div>
         </td>
+
         <td className="center aligned">
-          {bill.copayers.map(copayer=>{
-            return <div>{copayer}</div> 
+          {bill.hasNotPaid.map(copayer=>{
+            return <div onClick={()=>{props.handleCopayerToggle(bill, copayer)}} key={copayer} >{copayer}</div> 
+          })}
+          {bill.hasPaid.map(copayer=>{
+            return <div onClick={()=>{props.handleCopayerToggle(bill, copayer)}} key={copayer} style={{textDecoration: "line-through"}} >{copayer}</div> 
           })}
         </td>
-        <td>${(bill.amount / (bill.copayers.length+1)).toFixed(2)}</td>
-        <td>{bill.dueDate}</td>
+
+        {hasCopayers(bill)}
+        <td>
+            {bill.dueDate}
+        </td>
+
       </tr>
     );
 }

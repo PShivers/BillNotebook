@@ -2,12 +2,14 @@ import React, {Component} from 'react';
 import BillList from './components/BillList';
 import Header from './components/Header'
 import MonthSwitcher from './components/MonthSwitcher';
-import AddBill from './components/AddBill'
+import AddBill from './components/AddBill';
+import Modal from './components/Modal'
 
-import {getBillsByMonthAndYear, addBill, updateBill} from './util'
+import {getBillsByMonthAndYear, addBill, updateBill, deleteBill} from './util'
 
 class App extends Component {
   state = {
+    modal: false,
     bills: [],
     monthNum: null,
     monthName: "",
@@ -28,7 +30,11 @@ class App extends Component {
     ]
   }
 
-  getBills =()=> {
+  toggleModal=()=>{
+    this.setState({modal: !this.state.modal})
+  }
+
+  getBillsForCurrentMonth =()=> {
     let date = new Date();
     let currentYear = date.getFullYear();
     getBillsByMonthAndYear({
@@ -36,7 +42,6 @@ class App extends Component {
       year: date.getFullYear()
     })
     .then(res => {
-      console.log(res.data)
       let bills = res.data;
       this.setState({
         bills,
@@ -48,7 +53,7 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    this.getBills()
+    this.getBillsForCurrentMonth()
   }
 
   changeMonth = (x) => {
@@ -65,22 +70,53 @@ class App extends Component {
   }
 
   addBill=(newBill)=>{
-    addBill(newBill).then(res=>{console.log(res)})
+    addBill(newBill).then(res=>{this.getBillsForCurrentMonth()})
+  }
+
+  deleteBill =(bill)=>{
+    let archivedBill = {...bill};
+    archivedBill.isArchived = true;
+    console.log(archivedBill)
+    updateBill(archivedBill).then(res=>{this.getBillsForCurrentMonth()})
   }
 
   handleBillNameClick = (bill) => {
-    const newBill = {...bill};
-    newBill.isPaid = !bill.isPaid;
-    updateBill(newBill).then(res=>{this.getBills()})
+    if(!bill.isWithdrawn){
+      const newBill = {...bill};
+      newBill.isPaid = !bill.isPaid;
+      updateBill(newBill).then(res=>{this.getBillsForCurrentMonth()})
+    } else{
+      alert('Cannot remove Paid status if Bill has been marked as withdrawn')
+    }
   }
 
   handleBillAmountClick = (bill) => {
     if(bill.isPaid){
     const newBill = {...bill};
     newBill.isWithdrawn = !bill.isWithdrawn;
-    updateBill(newBill).then(res=>{this.getBills()})
+    updateBill(newBill).then(res=>{this.getBillsForCurrentMonth()})
     } else {
       alert(`Bill must be marked as paid before it can be marked as withdrawn.`)
+    }
+  }
+
+  handleCopayerToggle(bill, copayer){
+    const updatedBill = {...bill};
+    if(bill.hasPaid.includes(copayer)){
+      updatedBill.hasPaid = bill.hasPaid.filter(item=> item !== copayer);
+      updatedBill.hasNotPaid = [...bill.hasNotPaid,copayer];
+    } else if(bill.hasNotPaid.includes(copayer)){
+      updatedBill.hasNotPaid = bill.hasNotPaid.filter(item=> item !== copayer);
+      updatedBill.hasPaid = [...bill.hasPaid,copayer];
+    }
+    updateBill(updatedBill).then(res=>{
+      this.getBillsForCurrentMonth();
+    })
+  }
+
+  showModal = () => {
+    if(this.state.modal) {
+     return <Modal toggleModal={this.toggleModal}/>
     }
   }
 
@@ -91,13 +127,21 @@ class App extends Component {
         style={{
         backgroundColor: "rgba(0,75,0,.8)"
       }}>
+        {this.showModal()}
         <Header/>
         <MonthSwitcher
           currentMonth={this.state.currentMonth}
           monthName={this.state.monthName}
           changeMonth={this.changeMonth}/>
+
+
         <AddBill addBill={this.addBill}/>
-        <BillList bills={this.state.bills} handleBillNameClick={this.handleBillNameClick} handleBillAmountClick={this.handleBillAmountClick} />
+        <BillList 
+          bills={this.state.bills} 
+          deleteBill={this.deleteBill}
+          handleBillNameClick={this.handleBillNameClick} 
+          handleBillAmountClick={this.handleBillAmountClick} 
+          handleCopayerToggle={this.handleCopayerToggle}/>
       </div>
     );
   }

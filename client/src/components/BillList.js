@@ -2,10 +2,14 @@ import React, {Component} from 'react';
 import BillTableRow from './BillTableRow'
 
 class BillList extends Component {
+  state = {
+    total: []
+  }
 
   render() {
+    let total = 0
+    const paidBills = [0];
     const unpaidBills = [0];
-    console.log(unpaidBills)
     return (
       <table className="ui celled padded table">
         <thead>
@@ -25,17 +29,45 @@ class BillList extends Component {
             .props
             .bills
             .map(bill => {
-              return (
-                <BillTableRow bill={bill} isBillPaid={this.isBillPaid} handleBillNameClick={this.props.handleBillNameClick} handleBillAmountClick={this.props.handleBillAmountClick} />
-              )
+              if(!bill.isArchived){
+                return (
+                <BillTableRow 
+                  bill={bill} 
+                  deleteBill={this.props.deleteBill}
+                  isBillPaid={this.isBillPaid} 
+                  handleBillNameClick={this.props.handleBillNameClick} 
+                  handleBillAmountClick={this.props.handleBillAmountClick} 
+                  handleCopayerToggle={this.props.handleCopayerToggle}
+                />
+              )}
+              
             })}
         </tbody>
+
         <tfoot>
           <tr>
-            <th className="single line">Total Due</th>
+            <th className="single line">Total</th>
             <th>
               {this.props.bills.map(bill=>{
-                if(!bill.isWithdrawn){ 
+                if (!bill.isArchived){
+                  total += bill.amount
+                  }
+                })
+              }
+              ${total}
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </tfoot>
+        
+        <tfoot>
+          <tr>
+            <th className="single line" style={{backgroundColor: 'red'}} >Total Due</th>
+            <th>
+              {this.props.bills.map(bill=>{
+                if(!bill.isWithdrawn && !bill.isArchived){ 
                   unpaidBills.push(bill.amount)
                   }
                 })
@@ -47,6 +79,25 @@ class BillList extends Component {
             <th></th>
           </tr>
         </tfoot>
+
+        <tfoot>
+          <tr>
+            <th className="single line" style={{backgroundColor: 'green'}} >Total Paid</th>
+            <th>
+            {this.props.bills.map(bill=>{
+                if(bill.isWithdrawn && !bill.isArchived){ 
+                  paidBills.push(bill.amount)
+                  }
+                })
+              }
+              ${paidBills.reduce((a,c)=>{return a+c})}
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </tfoot>
+
       </table>
     )
   }
