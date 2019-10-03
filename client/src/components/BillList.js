@@ -29,7 +29,8 @@ class BillList extends Component {
             .props
             .bills
             .map(bill => {
-              return (
+              if(!bill.isArchived){
+                return (
                 <BillTableRow 
                   bill={bill} 
                   deleteBill={this.props.deleteBill}
@@ -38,7 +39,8 @@ class BillList extends Component {
                   handleBillAmountClick={this.props.handleBillAmountClick} 
                   handleCopayerToggle={this.props.handleCopayerToggle}
                 />
-              )
+              )}
+              
             })}
         </tbody>
 
@@ -47,7 +49,9 @@ class BillList extends Component {
             <th className="single line">Total</th>
             <th>
               {this.props.bills.map(bill=>{
-                total += bill.amount;
+                if (!bill.isArchived){
+                  total += bill.amount
+                  }
                 })
               }
               ${total}
@@ -63,7 +67,7 @@ class BillList extends Component {
             <th className="single line" style={{backgroundColor: 'red'}} >Total Due</th>
             <th>
               {this.props.bills.map(bill=>{
-                if(!bill.isWithdrawn){ 
+                if(!bill.isWithdrawn && !bill.isArchived){ 
                   unpaidBills.push(bill.amount)
                   }
                 })
@@ -81,7 +85,7 @@ class BillList extends Component {
             <th className="single line" style={{backgroundColor: 'green'}} >Total Paid</th>
             <th>
             {this.props.bills.map(bill=>{
-                if(bill.isWithdrawn){ 
+                if(bill.isWithdrawn && !bill.isArchived){ 
                   paidBills.push(bill.amount)
                   }
                 })

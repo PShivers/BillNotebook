@@ -31,11 +31,18 @@ const BillTableRow = (props) => {
     const bill = props.bill
     return ( <tr key ={bill._id}>
         
-        <td onClick={()=>{props.handleBillNameClick(bill)}}>
-            <span style={{cursor: "pointer"}} >{isBillPaid(bill)}</span>
+        <td >
+            <span 
+                onClick={()=>{props.handleBillNameClick(bill)}} 
+                style={{cursor: "pointer"}} 
+            >
+                {isBillPaid(bill)}
+            </span>
+
             <div style={{display: "flex", justifyContent: "center"}} onClick={()=>{props.deleteBill(bill)}} >
                 <button>Delete Bill</button>
             </div>
+
         </td>
 
         <td className="single line"  onClick={()=>{props.handleBillAmountClick(bill)}} >

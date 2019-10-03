@@ -16,6 +16,7 @@ class AddBill extends Component {
     this.setState({
       showForm: !this.state.showForm
     })
+    
   }
 
   handleSubmitClick = (event) => {
@@ -25,9 +26,11 @@ class AddBill extends Component {
     const dueDate = newBill.dueDate.split('-');
     newBill.month = parseInt(dueDate[1])-1;
     newBill.year = parseInt(dueDate[0]);
+    newBill.day = parseInt(dueDate[2]);
     newBill.dueDate = dueDate[1] + "/" + dueDate[2];
     console.log(newBill)
-    this.props.addBill(newBill)
+    this.props.addBill(newBill);
+    this.handleClick();
   }
 
   handleChange=(event)=>{

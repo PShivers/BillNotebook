@@ -74,7 +74,10 @@ class App extends Component {
   }
 
   deleteBill =(bill)=>{
-    deleteBill(bill)
+    let archivedBill = {...bill};
+    archivedBill.isArchived = true;
+    console.log(archivedBill)
+    updateBill(archivedBill).then(res=>{this.getBillsForCurrentMonth()})
   }
 
   handleBillNameClick = (bill) => {
