@@ -12,21 +12,22 @@ const BillTableRow = (props) => {
         }
       }
 
-      const isBillPaid = (bill) => {
+    const isBillPaid = (bill) => {
         if(bill.isPaid){
-          return <h2 className="ui center aligned header" style={{textDecoration: 'line-through'}} >{bill.name}</h2>
+            return <h2 className="ui center aligned header" style={{textDecoration: 'line-through'}} >{bill.name}
+            </h2>
         } else {
-          return <h2 className="ui center aligned header" >{bill.name}</h2>
+            return <h2 className="ui center aligned header" >{bill.name}</h2>
         }
-      }
+    }
 
-      const hasCopayers = (bill) => {
-          if (bill.hasNotPaid.length > 0 || bill.hasPaid.length > 0){
+    const hasCopayers = (bill) => {
+        if (bill.hasNotPaid.length > 0 || bill.hasPaid.length > 0){
             return <td>${(bill.amount / ((bill.hasNotPaid.length)+(bill.hasPaid.length)+1)).toFixed(2)}</td>
-          } else {
+        } else {
               return <td></td>
-          }
-      }
+        }
+    }
     
     const bill = props.bill
     return ( <tr key ={bill._id}>

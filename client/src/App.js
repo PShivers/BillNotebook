@@ -3,9 +3,10 @@ import BillList from './components/BillList';
 import Header from './components/Header'
 import MonthSwitcher from './components/MonthSwitcher';
 import AddBill from './components/AddBill';
-import Modal from './components/Modal'
+import Modal from './components/Modal';
+import CreateCopayer from './components/CreateCopayer'
 
-import {getBillsByMonthAndYear, addBill, updateBill, deleteBill} from './util'
+import {getBillsByMonthAndYear, addBill, updateBill, createCopayer} from './util'
 
 class App extends Component {
   state = {
@@ -30,15 +31,19 @@ class App extends Component {
     ]
   }
 
+  componentDidMount = () => {
+    this.getBillsForCurrentMonth()
+  }
+
   toggleModal=()=>{
     this.setState({modal: !this.state.modal})
   }
 
   //function taken from https://stackoverflow.com/questions/8175093/simple-function-to-sort-an-array-of-objects/8175221#8175221
-  sort_by_key=(array, key)=>{
-    return array.sort((a, b) => {
-      var x = a[key]; 
-      var y = b[key];
+  sortArrayByKey=(array, key)=>{
+    return array.sort((billA, billB) => {
+      var x = billA[key]; 
+      var y = billB[key];
       return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
 }
@@ -56,17 +61,13 @@ class App extends Component {
       //assigns the bills return from AJAX req to a variable called 'bills'
       let bills = res.data;
       //sorts bills by day
-      const sortedBills = this.sort_by_key(bills, "day");
+      const sortedBills = this.sortArrayByKey(bills, "day");
       this.setState({
         bills: sortedBills,
         currentYear,
         monthName: this.state.months[date.getMonth()]
       })
     });
-  }
-
-  componentDidMount = () => {
-    this.getBillsForCurrentMonth()
   }
 
   changeMonth = (x) => {
@@ -84,6 +85,12 @@ class App extends Component {
 
   addBill=(newBill)=>{
     addBill(newBill).then(res=>{this.getBillsForCurrentMonth()})
+  }
+
+  createCopayer = (copayer) => {
+    createCopayer(copayer).then(res=>{
+      console.log(res)
+    })
   }
 
   deleteBill =(bill)=>{
@@ -140,21 +147,30 @@ class App extends Component {
         style={{
         backgroundColor: "rgba(0,75,0,.8)"
       }}>
+
         {this.showModal()}
+
         <Header/>
+
         <MonthSwitcher
           currentMonth={this.state.currentMonth}
           monthName={this.state.monthName}
-          changeMonth={this.changeMonth}/>
+          changeMonth={this.changeMonth}
+        />
 
 
         <AddBill addBill={this.addBill}/>
+
+        <CreateCopayer createCopayer={this.createCopayer} />
+
         <BillList 
           bills={this.state.bills} 
           deleteBill={this.deleteBill}
           handleBillNameClick={this.handleBillNameClick} 
           handleBillAmountClick={this.handleBillAmountClick} 
-          handleCopayerToggle={this.handleCopayerToggle}/>
+          handleCopayerToggle={this.handleCopayerToggle}
+        />
+
       </div>
     );
   }
