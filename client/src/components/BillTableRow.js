@@ -31,7 +31,8 @@ const BillTableRow = (props) => {
     }
     
     const bill = props.bill
-    return ( <tr key ={bill._id}>
+    return ( 
+      <tr key ={bill._id}>
         
         <td >
             <span 
@@ -54,16 +55,22 @@ const BillTableRow = (props) => {
         </td>
 
         <td className="center aligned">
-        <CopayerPopup copayers={props.copayers}/>
-          {bill.hasNotPaid.map(copayer=>{
-            return <div onClick={()=>{props.handleCopayerToggle(bill, copayer)}} key={copayer} >{copayer}</div> 
-          })}
-          {bill.hasPaid.map(copayer=>{
-            return <div onClick={()=>{props.handleCopayerToggle(bill, copayer)}} key={copayer} style={{textDecoration: "line-through"}} >{copayer}</div> 
-          })}
+
+          <CopayerPopup copayers={props.copayers} bill={bill} addBillToCopayer={props.addBillToCopayer} />
+
+          {bill.copayers.map(copayer=>{
+            if(!copayer.hasPaid){
+              return <div onClick={()=>{props.handleCopayerToggle(bill, copayer)}} >{copayer.name}</div>
+            } else if(copayer.hasPaid){
+              return <div onClick={()=>{props.handleCopayerToggle(bill, copayer)}} style={{textDecoration: "line-through"}} >{copayer.name}</div>
+            }
+          })
+          }
+
         </td>
 
         {hasCopayers(bill)}
+
         <td>
             {bill.dueDate}
         </td>

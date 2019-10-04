@@ -44,3 +44,7 @@ export function getCopayers(){
 export function createCopayer(copayer){
   return axios.post(`/copayers`, copayer)
 }
+
+export function updateCopayer(copayer){
+  return axios.put(`/copayers/${copayer._id}`, copayer)
+}

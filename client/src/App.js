@@ -46,7 +46,11 @@ class App extends Component {
       var y = billB[key];
       return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
-}
+  }
+
+  refresh = () =>{
+    this.getBillsForCurrentMonth()
+  }
 
   getBillsForCurrentMonth =()=> {
     //store current date in a variable called date
@@ -93,6 +97,7 @@ class App extends Component {
     })
   }
 
+  //Does not actually delete bill, just toggles isArchived boolean.
   deleteBill =(bill)=>{
     let archivedBill = {...bill};
     archivedBill.isArchived = true;
@@ -121,14 +126,11 @@ class App extends Component {
   }
 
   handleCopayerToggle(bill, copayer){
+    const updatedCopayer = {...copayer};
+    updatedCopayer.hasPaid = !copayer.hasPaid;
     const updatedBill = {...bill};
-    if(bill.hasPaid.includes(copayer)){
-      updatedBill.hasPaid = bill.hasPaid.filter(item=> item !== copayer);
-      updatedBill.hasNotPaid = [...bill.hasNotPaid,copayer];
-    } else if(bill.hasNotPaid.includes(copayer)){
-      updatedBill.hasNotPaid = bill.hasNotPaid.filter(item=> item !== copayer);
-      updatedBill.hasPaid = [...bill.hasPaid,copayer];
-    }
+    const copayerIndex = updatedBill.copayers.indexOf(updatedBill.copayers.find(person => person.id == updatedCopayer.id));
+    updatedBill.copayers[copayerIndex] = updatedCopayer;
     updateBill(updatedBill).then(res=>{
       this.getBillsForCurrentMonth();
     })
@@ -169,6 +171,7 @@ class App extends Component {
           handleBillNameClick={this.handleBillNameClick} 
           handleBillAmountClick={this.handleBillAmountClick} 
           handleCopayerToggle={this.handleCopayerToggle}
+          refresh={this.refresh}
         />
 
       </div>
