@@ -32,3 +32,19 @@ export function deleteBill(bill){
 export function getMonth() {
     return axios.get('/months/:id');
 }
+
+//==================
+//== Copayers ======
+//==================
+
+export function getCopayers(){
+  return axios.get(`/copayers`)
+}
+
+export function createCopayer(copayer){
+  return axios.post(`/copayers`, copayer)
+}
+
+export function updateCopayer(copayer){
+  return axios.put(`/copayers/${copayer._id}`, copayer)
+}

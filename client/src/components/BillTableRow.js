@@ -1,5 +1,6 @@
 import React from 'react';
-import { updateBill } from '../util';
+import CopayerPopup from './CopayerPopup';
+
 
 
 const BillTableRow = (props) => {
@@ -12,24 +13,26 @@ const BillTableRow = (props) => {
         }
       }
 
-      const isBillPaid = (bill) => {
+    const isBillPaid = (bill) => {
         if(bill.isPaid){
-          return <h2 className="ui center aligned header" style={{textDecoration: 'line-through'}} >{bill.name}</h2>
+            return <h2 className="ui center aligned header" style={{textDecoration: 'line-through'}} >{bill.name}
+            </h2>
         } else {
-          return <h2 className="ui center aligned header" >{bill.name}</h2>
+            return <h2 className="ui center aligned header" >{bill.name}</h2>
         }
-      }
+    }
 
-      const hasCopayers = (bill) => {
-          if (bill.hasNotPaid.length > 0 || bill.hasPaid.length > 0){
-            return <td>${(bill.amount / ((bill.hasNotPaid.length)+(bill.hasPaid.length)+1)).toFixed(2)}</td>
-          } else {
+    const hasCopayers = (bill) => {
+        if (bill.copayers.length > 0){
+            return <td>${(bill.amount / (bill.copayers.length+1) ).toFixed(2)}</td>
+        } else {
               return <td></td>
-          }
-      }
+        }
+    }
     
     const bill = props.bill
-    return ( <tr key ={bill._id}>
+    return ( 
+      <tr key ={bill._id}>
         
         <td >
             <span 
@@ -52,15 +55,23 @@ const BillTableRow = (props) => {
         </td>
 
         <td className="center aligned">
-          {bill.hasNotPaid.map(copayer=>{
-            return <div onClick={()=>{props.handleCopayerToggle(bill, copayer)}} key={copayer} >{copayer}</div> 
-          })}
-          {bill.hasPaid.map(copayer=>{
-            return <div onClick={()=>{props.handleCopayerToggle(bill, copayer)}} key={copayer} style={{textDecoration: "line-through"}} >{copayer}</div> 
-          })}
-        </td>
 
+          <CopayerPopup copayers={props.copayers} bill={bill} addBillToCopayer={props.addBillToCopayer} />
+
+          {bill.copayers.map(copayer=>{
+            if(!copayer.hasPaid){
+              console.log(props.handleCopayerToggle)
+              return <div onClick={()=>{props.handleCopayerToggle(bill, copayer)}} >{copayer.name}</div>
+            } else if(copayer.hasPaid){
+              return <div onClick={()=>{props.handleCopayerToggle(bill, copayer)}} style={{textDecoration: "line-through"}} >{copayer.name}</div>
+            }
+          })
+          }
+
+        </td>
+          
         {hasCopayers(bill)}
+
         <td>
             {bill.dueDate}
         </td>

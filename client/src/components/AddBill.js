@@ -14,14 +14,18 @@ class AddBill extends Component {
 
   handleClick = () => {
     this.setState({
-      showForm: !this.state.showForm
-    })
-    
+      showForm: !this.state.showForm,
+      newBill: {
+        name: '',
+        amount: null,
+        dueDate: null,
+        isPaid: false
+      }
+    });
   }
 
   handleSubmitClick = (event) => {
     event.preventDefault();
-    this.handleClick();
     const newBill = {...this.state.newBill};
     const dueDate = newBill.dueDate.split('-');
     newBill.month = parseInt(dueDate[1])-1;
@@ -30,7 +34,7 @@ class AddBill extends Component {
     newBill.dueDate = dueDate[1] + "/" + dueDate[2];
     console.log(newBill)
     this.props.addBill(newBill);
-    this.handleClick();
+    this.handleClick();   
   }
 
   handleChange=(event)=>{
@@ -38,10 +42,7 @@ class AddBill extends Component {
     const attributeValue = event.target.value;
     const newBill = { ...this.state.newBill };
     newBill[attributeName] = attributeValue;
-    
-    this.setState({ newBill }, () => {
-      
-    });
+    this.setState({ newBill }, () => {});
   }
 
   formToggle = () => {
