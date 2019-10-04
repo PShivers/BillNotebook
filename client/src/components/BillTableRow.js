@@ -23,8 +23,8 @@ const BillTableRow = (props) => {
     }
 
     const hasCopayers = (bill) => {
-        if (bill.hasNotPaid.length > 0 || bill.hasPaid.length > 0){
-            return <td>${(bill.amount / ((bill.hasNotPaid.length)+(bill.hasPaid.length)+1)).toFixed(2)}</td>
+        if (bill.copayers.length > 0){
+            return <td>${(bill.amount / (bill.copayers.length+1) ).toFixed(2)}</td>
         } else {
               return <td></td>
         }
@@ -60,6 +60,7 @@ const BillTableRow = (props) => {
 
           {bill.copayers.map(copayer=>{
             if(!copayer.hasPaid){
+              console.log(props.handleCopayerToggle)
               return <div onClick={()=>{props.handleCopayerToggle(bill, copayer)}} >{copayer.name}</div>
             } else if(copayer.hasPaid){
               return <div onClick={()=>{props.handleCopayerToggle(bill, copayer)}} style={{textDecoration: "line-through"}} >{copayer.name}</div>
@@ -68,7 +69,7 @@ const BillTableRow = (props) => {
           }
 
         </td>
-
+          
         {hasCopayers(bill)}
 
         <td>

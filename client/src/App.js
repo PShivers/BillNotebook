@@ -101,7 +101,6 @@ class App extends Component {
   deleteBill =(bill)=>{
     let archivedBill = {...bill};
     archivedBill.isArchived = true;
-    console.log(archivedBill)
     updateBill(archivedBill).then(res=>{this.getBillsForCurrentMonth()})
   }
 
@@ -125,14 +124,17 @@ class App extends Component {
     }
   }
 
-  handleCopayerToggle(bill, copayer){
+  handleCopayerToggle=(bill, copayer)=>{
+    //store copayer in variable 
     const updatedCopayer = {...copayer};
+    //toggle hasPaid boolean value
     updatedCopayer.hasPaid = !copayer.hasPaid;
     const updatedBill = {...bill};
+    //find index of bill.copayer to be replaced
     const copayerIndex = updatedBill.copayers.indexOf(updatedBill.copayers.find(person => person.id == updatedCopayer.id));
     updatedBill.copayers[copayerIndex] = updatedCopayer;
     updateBill(updatedBill).then(res=>{
-      this.getBillsForCurrentMonth();
+      this.getBillsForCurrentMonth()
     })
   }
 
