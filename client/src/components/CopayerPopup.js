@@ -11,13 +11,15 @@ class CopayerPopup extends Component {
                 <div 
                     style={{cursor: 'pointer'}} 
                     key={copayer._id} 
-                    onClick={()=>{this.props.addBillToCopayer(copayer,this.props.bill)}} 
+                    onClick={()=>{
+                        this.props.addCopayerToBill(copayer,this.props.bill,this.props.futureAmountPerPerson)
+                    }} 
                 >
                     {copayer.name}
                 </div>
             )
         })
-        return ( <Popup content={copayerList} trigger={<Button icon='add' />} hoverable /> );
+        return ( <Popup content={copayerList} trigger={<div>+</div>} hoverable /> );
     }
 }
 

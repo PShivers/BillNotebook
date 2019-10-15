@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import BillTableRow from './BillTableRow';
+import { Table } from 'reactstrap';
+
 
 import {getCopayers,updateCopayer,updateBill} from '../util'
 
@@ -38,7 +40,7 @@ class BillList extends Component {
     const paidBills = [0];
     const unpaidBills = [0];
     return (
-      <table className="ui celled padded table">
+      <Table striped>
         <thead>
           <tr>
 
@@ -98,8 +100,8 @@ class BillList extends Component {
         </tfoot>
         
         <tfoot>
-          <tr className="total">
-            <th className="single line total" style={{backgroundColor: 'red'}} >Total Due</th>
+          <tr>
+            <th className="single line" style={{backgroundColor: 'red'}} >Total Due</th>
             <th>
               {this.props.bills.map(bill=>{
                 if(!bill.isWithdrawn && !bill.isArchived){ 
@@ -133,7 +135,7 @@ class BillList extends Component {
           </tr>
         </tfoot>
 
-      </table>
+      </Table>
     )
   }
 }

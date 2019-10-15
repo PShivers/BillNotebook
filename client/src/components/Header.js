@@ -4,11 +4,11 @@ class Header extends Component {
   state = {}
   render() {
     return (
-      <h2 className="ui center aligned icon header inverted">
-        <i className="dollar sign icon"></i>
-        <div className="content">
+      <h2 className="ui center aligned icon header title">
+        {/* <i className="dollar sign icon"></i> */}
+        <div className="content title">
           BillBook
-          <div className="sub header">All bills, no frills</div>
+          {/* <div className="title">All bills, no frills</div> */}
         </div>
       </h2>
     );

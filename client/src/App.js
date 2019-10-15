@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import BillList from './components/BillList';
+import './App.css'
+import BillList from './components/BillListTwo';
 import Header from './components/Header'
 import MonthSwitcher from './components/MonthSwitcher';
 import AddBill from './components/AddBill';
-import Modal from './components/Modal';
 import CreateCopayer from './components/CreateCopayer'
 
 import {getBillsByMonthAndYear, addBill, updateBill, createCopayer} from './util'
@@ -12,6 +12,12 @@ class App extends Component {
   state = {
     modal: false,
     bills: [],
+    newBill: {
+      name: '',
+      amount: null,
+      dueDate: null,
+      isPaid: false
+    },
     monthNum: null,
     monthName: "",
     currentYear: null,
@@ -33,10 +39,6 @@ class App extends Component {
 
   componentDidMount = () => {
     this.getBillsForCurrentMonth()
-  }
-
-  toggleModal=()=>{
-    this.setState({modal: !this.state.modal})
   }
 
   //function taken from https://stackoverflow.com/questions/8175093/simple-function-to-sort-an-array-of-objects/8175221#8175221
@@ -138,22 +140,11 @@ class App extends Component {
     })
   }
 
-  showModal = () => {
-    if(this.state.modal) {
-     return <Modal toggleModal={this.toggleModal}/>
-    }
-  }
-
   render() {
     return (
-      <div
-        className="App"
-        style={{
-        backgroundColor: "rgba(0,75,0,.8)"
-      }}>
-
-        {this.showModal()}
-
+      <div className="App" >
+        <div className='top-portion' >
+          
         <Header/>
 
         <MonthSwitcher
@@ -163,9 +154,13 @@ class App extends Component {
         />
 
 
-        <AddBill addBill={this.addBill}/>
+        <AddBill 
+          handleBillFormChange={this.handleBillFormChange}
+          addBill={this.addBill}
+        />
 
         <CreateCopayer createCopayer={this.createCopayer} />
+        </div> 
 
         <BillList 
           bills={this.state.bills} 
@@ -175,7 +170,6 @@ class App extends Component {
           handleCopayerToggle={this.handleCopayerToggle}
           refresh={this.refresh}
         />
-
       </div>
     );
   }

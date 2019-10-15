@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {Button} from 'reactstrap'
+
 
 class AddBill extends Component {
 
@@ -42,7 +44,9 @@ class AddBill extends Component {
     const attributeValue = event.target.value;
     const newBill = { ...this.state.newBill };
     newBill[attributeName] = attributeValue;
-    this.setState({ newBill }, () => {});
+    this.setState({ newBill }, () => {
+      console.log(this.state.newBill)
+    });
   }
 
   formToggle = () => {
@@ -50,13 +54,31 @@ class AddBill extends Component {
       return (
         <div >
           <form>
-            Bill:
-            <input type="text" name="name" onChange={this.handleChange} value={this.state.newBill.name}/>
-            Amount:
-            <input type="number" name="amount" onChange={this.handleChange} value={this.state.newBill.amount}/>
-            Due Date: 
-            <input type='date' onChange={this.handleChange} name="dueDate"/>
-            <input type="Submit" onClick={this.handleSubmitClick}/>
+            <input 
+            type="text" 
+            name="name" 
+            placeholder="Bill Name" 
+            onChange={this.handleChange} 
+            value={this.state.newBill.name}
+          />
+            <input 
+              type="number" 
+              name="amount"
+              placeholder="Bill Amount"  
+              onChange={this.handleChange} 
+              value={this.state.newBill.amount}
+            />
+            <input 
+              type='date' 
+              placeholder="Due Date" 
+
+              onChange={this.handleChange} 
+              name="dueDate"
+            />
+            <input 
+              type="Submit" 
+              onClick={this.handleSubmitClick}
+            />
           </form>
         </div>
       )
@@ -66,9 +88,17 @@ class AddBill extends Component {
   render() {
 
     return (
-      <div >
-        <button onClick={this.handleClick}>Add Bill</button>
-        {this.formToggle()}
+      <div 
+        className="flex column centered margin"
+      >
+        <Button 
+          onClick={this.handleClick}
+        >
+          Add Bill
+        </Button>
+        <div>
+          {this.formToggle()}
+        </div>
       </div>
     );
   }

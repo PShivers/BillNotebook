@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Button} from 'reactstrap'
 
 class CreateCopayer extends Component {
     state = { 
@@ -36,18 +37,17 @@ class CreateCopayer extends Component {
     
                         <input 
                             name="name"
-                            placeholder="name" 
+                            placeholder="Name" 
                             type="text" onChange={this.handleChange} 
                             value={this.state.newCopayer.name} 
                         />
     
                         <input 
                             name="email"
-                            placeholder="email address" 
+                            placeholder="Email Address" 
                             type="text" onChange={this.handleChange}
                             value={this.state.newCopayer.email} 
                         />
-    
                         <button type="submit" onClick={this.handleSubmit}>Submit</button>
     
                     </form>
@@ -58,8 +58,10 @@ class CreateCopayer extends Component {
 
     render() { 
         return (
-        <div>
-            <button onClick={this.handleClick} >Create Copayer</button>
+        <div
+            className="flex column centered"
+        >
+            <Button onClick={this.handleClick} >Create Copayer</Button>
             {this.formToggle()}
         </div>
         )

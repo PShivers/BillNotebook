@@ -4,6 +4,10 @@ import CopayerPopup from './CopayerPopup';
 
 
 const BillTableRow = (props) => {
+    
+    const bill = props.bill;
+    const amountPerPerson = (bill.amount / (bill.copayers.length+1)).toFixed(2);
+    const futureAmountPerPerson = (bill.amount / (bill.copayers.length+2)).toFixed(2);
 
     const isBillWithdrawn = (bill) => {
         if(bill.isWithdrawn){
@@ -24,23 +28,22 @@ const BillTableRow = (props) => {
 
     const hasCopayers = (bill) => {
         if (bill.copayers.length > 0){
-            return <td>${(bill.amount / (bill.copayers.length+1) ).toFixed(2)}</td>
+            return <td>${amountPerPerson}</td>
         } else {
               return <td></td>
         }
     }
     
-    const bill = props.bill
     return ( 
       <tr key ={bill._id}>
         
-        <td >
-            <span 
+        <td className='flex centered'>
+            <div 
                 onClick={()=>{props.handleBillNameClick(bill)}} 
                 style={{cursor: "pointer"}} 
             >
                 {isBillPaid(bill)}
-            </span>
+            </div>
 
             <div style={{display: "flex", justifyContent: "center"}} onClick={()=>{props.deleteBill(bill)}} >
                 <button>Delete Bill</button>
@@ -56,11 +59,15 @@ const BillTableRow = (props) => {
 
         <td className="center aligned">
 
-          <CopayerPopup copayers={props.copayers} bill={bill} addBillToCopayer={props.addBillToCopayer} />
+          <CopayerPopup 
+            copayers={props.copayers} 
+            bill={bill}
+            futureAmountPerPerson={futureAmountPerPerson}
+            addCopayerToBill={props.addCopayerToBill} 
+          />
 
           {bill.copayers.map(copayer=>{
             if(!copayer.hasPaid){
-              console.log(props.handleCopayerToggle)
               return <div onClick={()=>{props.handleCopayerToggle(bill, copayer)}} >{copayer.name}</div>
             } else if(copayer.hasPaid){
               return <div onClick={()=>{props.handleCopayerToggle(bill, copayer)}} style={{textDecoration: "line-through"}} >{copayer.name}</div>
