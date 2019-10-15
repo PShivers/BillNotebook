@@ -35,6 +35,11 @@
     margin: 1%;
 }
 
+.delete-button{
+    margin-left: 5%;
+    cursor: pointer;
+}
+
 .total{
     padding: 0;
 }

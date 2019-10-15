@@ -45,8 +45,8 @@ const BillTableRow = (props) => {
                 {isBillPaid(bill)}
             </div>
 
-            <div style={{display: "flex", justifyContent: "center"}} onClick={()=>{props.deleteBill(bill)}} >
-                <button>Delete Bill</button>
+            <div className="flex centered delete-button" onClick={()=>{props.deleteBill(bill)}} >
+              X
             </div>
 
         </td>
