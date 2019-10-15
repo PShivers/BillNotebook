@@ -5,8 +5,10 @@ import Header from './components/Header'
 import MonthSwitcher from './components/MonthSwitcher';
 import AddBill from './components/AddBill';
 import CreateCopayer from './components/CreateCopayer'
+import ParallaxImage from './components/ParallaxImage'
 
 import {getBillsByMonthAndYear, addBill, updateBill, createCopayer} from './util'
+import { Parallax } from 'react-scroll-parallax';
 
 class App extends Component {
   state = {
@@ -144,7 +146,6 @@ class App extends Component {
     return (
       <div className="App" >
         <div className='top-portion' >
-          
         <Header/>
 
         <MonthSwitcher
